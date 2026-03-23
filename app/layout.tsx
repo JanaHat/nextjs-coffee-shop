@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
 import { AppNavigation } from "@/app/_components/AppNavigation";
-import { BasketProvider } from "@/src/state/basket-context";
+import { Providers } from "@/app/providers";
 
 import "./globals.css";
 
@@ -66,10 +66,10 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <BasketProvider>
+        <Providers>
           <AppNavigation />
           {children}
-        </BasketProvider>
+        </Providers>
       </body>
     </html>
   );

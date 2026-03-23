@@ -1,8 +1,8 @@
 "use client";
 
-import { useMemo } from "react";
-
-import { useBasket } from "@/src/state/basket-context";
+import { useAppDispatch, useAppSelector } from "@/src/state/hooks";
+import { selectBasketQuantityById } from "@/src/state/selectors/basket-selectors";
+import { addItem } from "@/src/state/slices/basket-slice";
 
 type AddToBasketButtonProps = {
   product: {
@@ -14,19 +14,18 @@ type AddToBasketButtonProps = {
 };
 
 export function AddToBasketButton({ product }: AddToBasketButtonProps) {
-  const { addItem, items } = useBasket();
-
-  const quantity = useMemo(() => {
-    return items.find((item) => item.id === product.id)?.quantity ?? 0;
-  }, [items, product.id]);
+  const dispatch = useAppDispatch();
+  const quantity = useAppSelector((state) => selectBasketQuantityById(state, product.id));
 
   const handleAdd = () => {
-    addItem({
-      id: product.id,
-      name: product.name,
-      brand: product.brand,
-      price: product.price,
-    });
+    dispatch(
+      addItem({
+        id: product.id,
+        name: product.name,
+        brand: product.brand,
+        price: product.price,
+      }),
+    );
   };
 
   return (

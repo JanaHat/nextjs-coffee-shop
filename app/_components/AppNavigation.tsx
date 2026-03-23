@@ -2,9 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useSyncExternalStore } from "react";
 
-import { useBasket } from "@/src/state/basket-context";
+import { useAppSelector } from "@/src/state/hooks";
+import {
+  selectBasketHydrated,
+  selectBasketTotalItems,
+} from "@/src/state/selectors/basket-selectors";
 
 const navLinkClass = (isActive: boolean) => {
   return [
@@ -15,12 +18,8 @@ const navLinkClass = (isActive: boolean) => {
 
 export function AppNavigation() {
   const pathname = usePathname();
-  const { totalItems } = useBasket();
-  const isHydrated = useSyncExternalStore(
-    () => () => {},
-    () => true,
-    () => false,
-  );
+  const totalItems = useAppSelector(selectBasketTotalItems);
+  const isHydrated = useAppSelector(selectBasketHydrated);
 
   const isProducts = pathname.startsWith("/products");
   const isBasket = pathname.startsWith("/basket");

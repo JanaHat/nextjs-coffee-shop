@@ -1,9 +1,19 @@
 "use client";
 
 import Link from "next/link";
-import { useSyncExternalStore } from "react";
 
-import { useBasket } from "@/src/state/basket-context";
+import { useAppDispatch, useAppSelector } from "@/src/state/hooks";
+import {
+  selectBasketHydrated,
+  selectBasketItems,
+  selectBasketTotalItems,
+  selectBasketTotalPrice,
+} from "@/src/state/selectors/basket-selectors";
+import {
+  clearBasket,
+  removeItem,
+  updateQuantity,
+} from "@/src/state/slices/basket-slice";
 
 const formatPrice = (value: number) => {
   return new Intl.NumberFormat("en-GB", {
@@ -13,13 +23,11 @@ const formatPrice = (value: number) => {
 };
 
 export default function BasketPage() {
-  const { items, totalItems, totalPrice, updateQuantity, removeItem, clearBasket } =
-    useBasket();
-  const isHydrated = useSyncExternalStore(
-    () => () => {},
-    () => true,
-    () => false,
-  );
+  const dispatch = useAppDispatch();
+  const items = useAppSelector(selectBasketItems);
+  const totalItems = useAppSelector(selectBasketTotalItems);
+  const totalPrice = useAppSelector(selectBasketTotalPrice);
+  const isHydrated = useAppSelector(selectBasketHydrated);
 
   const displayItems = isHydrated ? items : [];
   const displayTotalItems = isHydrated ? totalItems : 0;
@@ -39,7 +47,7 @@ export default function BasketPage() {
           {displayItems.length > 0 ? (
             <button
               type="button"
-              onClick={clearBasket}
+              onClick={() => dispatch(clearBasket())}
               className="app-button-secondary rounded-lg px-4 py-2 text-sm"
             >
               Clear basket
@@ -82,7 +90,14 @@ export default function BasketPage() {
                       <div className="flex flex-wrap items-center gap-2 sm:justify-end">
                         <button
                           type="button"
-                          onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                          onClick={() =>
+                            dispatch(
+                              updateQuantity({
+                                productId: item.id,
+                                quantity: item.quantity - 1,
+                              }),
+                            )
+                          }
                           className="app-button-secondary h-9 w-9 rounded-lg"
                           aria-label={`Decrease quantity of ${item.name}`}
                         >
@@ -95,7 +110,14 @@ export default function BasketPage() {
 
                         <button
                           type="button"
-                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                          onClick={() =>
+                            dispatch(
+                              updateQuantity({
+                                productId: item.id,
+                                quantity: item.quantity + 1,
+                              }),
+                            )
+                          }
                           className="app-button-secondary h-9 w-9 rounded-lg"
                           aria-label={`Increase quantity of ${item.name}`}
                         >
@@ -104,7 +126,7 @@ export default function BasketPage() {
 
                         <button
                           type="button"
-                          onClick={() => removeItem(item.id)}
+                          onClick={() => dispatch(removeItem(item.id))}
                           className="app-button-secondary rounded-lg px-3 py-2 text-sm"
                         >
                           Remove
