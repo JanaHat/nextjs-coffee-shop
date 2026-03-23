@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --app-bg: #f8fafc;
+  --app-surface: #ffffff;
+  --app-border: #e4e4e7;
+  --app-text: #18181b;
+  --app-text-muted: #52525b;
+  --app-chip-bg: #f4f4f5;
+  --app-chip-text: #3f3f46;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.app-page {
+  min-height: 100vh;
+  background: var(--app-bg);
+  color: var(--app-text);
+}
+
+.app-surface {
+  border: 1px solid var(--app-border);
+  background: var(--app-surface);
+}
+
+.app-muted {
+  color: var(--app-text-muted);
+}
+
+.app-input {
+  height: 2.5rem;
+  border: 1px solid var(--app-border);
+  border-radius: 0.5rem;
+  background: var(--app-surface);
+  color: var(--app-text);
+  padding: 0 0.75rem;
+  outline: none;
+}
+
+.app-input:focus {
+  border-color: var(--app-text-muted);
+}
+
+.app-button-primary {
+  background: var(--app-text);
+  color: var(--app-surface);
+}
+
+.app-button-primary:hover {
+  opacity: 0.9;
+}
+
+.app-button-secondary {
+  border: 1px solid var(--app-border);
+}
+
+.app-button-secondary:hover {
+  background: var(--app-chip-bg);
+}
+
+.app-chip {
+  background: var(--app-chip-bg);
+  color: var(--app-chip-text);
+}

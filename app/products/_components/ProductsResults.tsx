@@ -1,0 +1,70 @@
+import Link from "next/link";
+
+import { ProductCard } from "@/app/products/_components/ProductCard";
+import { ProductsPagination } from "@/app/products/_components/ProductsPagination";
+import { buildProductsHref } from "@/app/products/_lib/search-params";
+import { getProducts } from "@/src/lib/products";
+import type { ProductsQuery } from "@/src/types/products-query";
+
+type ProductsResultsProps = {
+  query: ProductsQuery;
+  searchParamsString: string;
+};
+
+export async function ProductsResults({
+  query,
+  searchParamsString,
+}: ProductsResultsProps) {
+  const result = getProducts(query);
+
+  const hasPrevious = query.page > 1;
+  const hasNext = query.page * query.pageSize < result.total;
+  const hasActiveFilters = Boolean(
+    query.q ||
+    query.tag ||
+    query.sort ||
+    typeof query.minPrice === "number" ||
+    typeof query.maxPrice === "number",
+  );
+
+  const urlSearchParams = new URLSearchParams(searchParamsString);
+
+  return (
+    <>
+      <section className="space-y-4">
+        <p className="app-muted text-sm">
+          Showing <span className="font-medium">{result.items.length}</span> of{" "}
+          <span className="font-medium">{result.total}</span> coffees
+        </p>
+
+        {result.items.length === 0 ? (
+          <div className="app-surface rounded-2xl border-dashed p-8 text-center app-muted">
+            <p>No products found. Try adjusting your filters.</p>
+            {hasActiveFilters ? (
+              <Link
+                href="/products"
+                className="app-button-secondary mt-4 inline-flex rounded-lg px-3 py-2 text-sm"
+              >
+                Clear filters
+              </Link>
+            ) : null}
+          </div>
+        ) : (
+          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {result.items.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </ul>
+        )}
+      </section>
+
+      <ProductsPagination
+        page={query.page}
+        hasPrevious={hasPrevious}
+        hasNext={hasNext}
+        previousHref={buildProductsHref(urlSearchParams, { page: query.page - 1 })}
+        nextHref={buildProductsHref(urlSearchParams, { page: query.page + 1 })}
+      />
+    </>
+  );
+}

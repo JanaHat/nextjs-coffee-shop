@@ -1,0 +1,293 @@
+[
+  {
+    "id": "coffee-001",
+    "name": "Ethiopia Yirgacheffe Filter",
+    "brand": "Square Mile",
+    "price": 16.9,
+    "description": "Floral and citrus-forward single-origin coffee with a tea-like body, ideal for pour-over.",
+    "tags": ["single-origin", "filter", "light-roast", "washed", "floral", "citrus"],
+    "rating": 4.8
+  },
+  {
+    "id": "coffee-002",
+    "name": "Colombia Huila Espresso",
+    "brand": "Square Mile",
+    "price": 14.5,
+    "description": "Balanced espresso profile with caramel sweetness, red fruit, and smooth finish.",
+    "tags": ["single-origin", "espresso", "medium-roast", "washed", "caramel"],
+    "rating": 4.6
+  },
+  {
+    "id": "coffee-003",
+    "name": "House Blend",
+    "brand": "Blue Bottle",
+    "price": 13,
+    "description": "Approachable daily blend with chocolate and roasted nut notes for multiple brew methods.",
+    "tags": ["blend", "espresso", "filter", "medium-roast", "chocolate", "nutty"],
+    "rating": 4.4
+  },
+  {
+    "id": "coffee-004",
+    "name": "Kenya AA Nyeri",
+    "brand": "Origin Coffee",
+    "price": 17.2,
+    "description": "Juicy blackcurrant and grapefruit with sparkling acidity and clean sweetness.",
+    "tags": ["single-origin", "filter", "light-roast", "washed", "berry", "citrus"],
+    "rating": 4.9
+  },
+  {
+    "id": "coffee-005",
+    "name": "Brazil Cerrado Natural",
+    "brand": "Assembly",
+    "price": 12.8,
+    "description": "Chocolate-heavy cup with hazelnut sweetness and low acidity, great for milk drinks.",
+    "tags": [
+      "single-origin",
+      "espresso",
+      "medium-roast",
+      "natural",
+      "chocolate",
+      "nutty"
+    ],
+    "rating": 4.3
+  },
+  {
+    "id": "coffee-006",
+    "name": "Guatemala Huehuetenango",
+    "brand": "Pact Coffee",
+    "price": 15.4,
+    "description": "Sweet stone fruit and cocoa in a medium-bodied cup for filter and AeroPress.",
+    "tags": ["single-origin", "filter", "medium-roast", "washed", "stone-fruit", "cocoa"],
+    "rating": 4.5
+  },
+  {
+    "id": "coffee-007",
+    "name": "Decaf Colombia Sugarcane",
+    "brand": "Blue Bottle",
+    "price": 14.9,
+    "description": "Full-flavored decaf with toffee sweetness and gentle citrus, no compromise cup.",
+    "tags": ["single-origin", "decaf", "filter", "espresso", "medium-roast", "sweet"],
+    "rating": 4.4
+  },
+  {
+    "id": "coffee-008",
+    "name": "Rwanda Nyamasheke",
+    "brand": "Origin Coffee",
+    "price": 16.1,
+    "description": "Red apple and black tea notes with silky mouthfeel and elegant finish.",
+    "tags": ["single-origin", "filter", "light-roast", "washed", "tea-like", "apple"],
+    "rating": 4.7
+  },
+  {
+    "id": "coffee-009",
+    "name": "Morning Espresso Blend",
+    "brand": "Assembly",
+    "price": 12.5,
+    "description": "Classic espresso blend with dark chocolate body and syrupy crema.",
+    "tags": ["blend", "espresso", "medium-roast", "chocolate", "daily"],
+    "rating": 4.2
+  },
+  {
+    "id": "coffee-010",
+    "name": "Peru Cajamarca",
+    "brand": "Pact Coffee",
+    "price": 13.9,
+    "description": "Brown sugar and plum notes with balanced acidity and clean finish.",
+    "tags": ["single-origin", "filter", "medium-roast", "washed", "plum", "sweet"],
+    "rating": 4.3
+  },
+  {
+    "id": "coffee-011",
+    "name": "Costa Rica Tarrazu",
+    "brand": "The Barn",
+    "price": 15.8,
+    "description": "Honey sweetness, orange peel, and milk chocolate in a versatile profile.",
+    "tags": ["single-origin", "espresso", "filter", "medium-roast", "honey", "orange"],
+    "rating": 4.6
+  },
+  {
+    "id": "coffee-012",
+    "name": "Ethiopia Guji Natural",
+    "brand": "Square Mile",
+    "price": 17.8,
+    "description": "Jammy blueberry and tropical fruit notes with perfumed aromatics.",
+    "tags": ["single-origin", "filter", "light-roast", "natural", "berry", "tropical"],
+    "rating": 4.9
+  },
+  {
+    "id": "coffee-013",
+    "name": "Weekend Blend",
+    "brand": "Blue Bottle",
+    "price": 11.9,
+    "description": "Comforting cup with cocoa, biscuit sweetness, and low bitterness.",
+    "tags": ["blend", "filter", "medium-roast", "cocoa", "biscuit"],
+    "rating": 4.1
+  },
+  {
+    "id": "coffee-014",
+    "name": "India Monsooned Malabar",
+    "brand": "Origin Coffee",
+    "price": 12.7,
+    "description": "Low-acid and heavy-bodied coffee with spice and dark cocoa characteristics.",
+    "tags": ["single-origin", "espresso", "dark-roast", "spice", "low-acid"],
+    "rating": 4.2
+  },
+  {
+    "id": "coffee-015",
+    "name": "Burundi Kayanza",
+    "brand": "Assembly",
+    "price": 15.6,
+    "description": "Bright and lively cup with citrus zest and black tea complexity.",
+    "tags": ["single-origin", "filter", "light-roast", "washed", "citrus", "tea-like"],
+    "rating": 4.6
+  },
+  {
+    "id": "coffee-016",
+    "name": "Signature Espresso",
+    "brand": "Pact Coffee",
+    "price": 13.4,
+    "description": "Sweet and creamy espresso with toffee, cocoa nib, and cherry finish.",
+    "tags": ["blend", "espresso", "medium-roast", "toffee", "cherry"],
+    "rating": 4.5
+  },
+  {
+    "id": "coffee-017",
+    "name": "Nicaragua Jinotega",
+    "brand": "The Barn",
+    "price": 14.2,
+    "description": "Soft caramel sweetness and stone-fruit notes with rounded body.",
+    "tags": [
+      "single-origin",
+      "filter",
+      "medium-roast",
+      "washed",
+      "caramel",
+      "stone-fruit"
+    ],
+    "rating": 4.4
+  },
+  {
+    "id": "coffee-018",
+    "name": "Panama Geisha Reserve",
+    "brand": "The Barn",
+    "price": 29.5,
+    "description": "Delicate jasmine aromatics with bergamot and honeyed sweetness.",
+    "tags": ["single-origin", "filter", "light-roast", "washed", "floral", "premium"],
+    "rating": 5
+  },
+  {
+    "id": "coffee-019",
+    "name": "Uganda Sipi Falls",
+    "brand": "Square Mile",
+    "price": 13.6,
+    "description": "Rich and syrupy with dark fruit and cocoa undertones.",
+    "tags": ["single-origin", "espresso", "medium-roast", "cocoa", "dark-fruit"],
+    "rating": 4.3
+  },
+  {
+    "id": "coffee-020",
+    "name": "Mexico Chiapas Decaf",
+    "brand": "Blue Bottle",
+    "price": 13.8,
+    "description": "Smooth decaf with milk chocolate and orange sweetness.",
+    "tags": ["single-origin", "decaf", "filter", "medium-roast", "chocolate", "orange"],
+    "rating": 4.2
+  },
+  {
+    "id": "coffee-021",
+    "name": "El Salvador Santa Ana",
+    "brand": "Origin Coffee",
+    "price": 14.7,
+    "description": "Creamy profile with praline sweetness and soft apple acidity.",
+    "tags": ["single-origin", "filter", "medium-roast", "washed", "praline", "apple"],
+    "rating": 4.4
+  },
+  {
+    "id": "coffee-022",
+    "name": "Daily Drip Blend",
+    "brand": "Assembly",
+    "price": 11.5,
+    "description": "Easy-drinking blend for batch brew with cocoa and caramel notes.",
+    "tags": ["blend", "filter", "medium-roast", "daily", "cocoa", "caramel"],
+    "rating": 4
+  },
+  {
+    "id": "coffee-023",
+    "name": "Tanzania Kilimanjaro",
+    "brand": "Pact Coffee",
+    "price": 15.2,
+    "description": "Crisp acidity with black tea and berry notes, excellent for V60.",
+    "tags": ["single-origin", "filter", "light-roast", "washed", "berry", "tea-like"],
+    "rating": 4.7
+  },
+  {
+    "id": "coffee-024",
+    "name": "Honduras Marcala",
+    "brand": "The Barn",
+    "price": 14,
+    "description": "Round sweetness and cocoa with gentle citrus finish.",
+    "tags": ["single-origin", "espresso", "medium-roast", "washed", "cocoa", "citrus"],
+    "rating": 4.3
+  },
+  {
+    "id": "coffee-025",
+    "name": "Bolivia La Paz",
+    "brand": "Square Mile",
+    "price": 15.1,
+    "description": "Elegant cup featuring panela sweetness, pear, and milk chocolate.",
+    "tags": ["single-origin", "filter", "medium-roast", "washed", "pear", "sweet"],
+    "rating": 4.5
+  },
+  {
+    "id": "coffee-026",
+    "name": "Espresso Dark Roast",
+    "brand": "Blue Bottle",
+    "price": 12.2,
+    "description": "Bold and intense with bittersweet chocolate and toasted almond.",
+    "tags": ["blend", "espresso", "dark-roast", "chocolate", "nutty"],
+    "rating": 4.1
+  },
+  {
+    "id": "coffee-027",
+    "name": "Papua New Guinea Sigri",
+    "brand": "Origin Coffee",
+    "price": 16.4,
+    "description": "Silky body with tropical fruit and cocoa finish.",
+    "tags": ["single-origin", "filter", "medium-roast", "washed", "tropical", "cocoa"],
+    "rating": 4.6
+  },
+  {
+    "id": "coffee-028",
+    "name": "Costa Rica Honey Process",
+    "brand": "Assembly",
+    "price": 16.7,
+    "description": "Honey-processed sweetness with orange blossom aromatics.",
+    "tags": [
+      "single-origin",
+      "filter",
+      "light-roast",
+      "honey-process",
+      "floral",
+      "orange"
+    ],
+    "rating": 4.8
+  },
+  {
+    "id": "coffee-029",
+    "name": "Cold Brew Blend",
+    "brand": "Pact Coffee",
+    "price": 12.4,
+    "description": "Designed for cold brew with smooth chocolate body and low acidity.",
+    "tags": ["blend", "cold-brew", "medium-roast", "chocolate", "low-acid"],
+    "rating": 4.2
+  },
+  {
+    "id": "coffee-030",
+    "name": "Ethiopia Sidama Espresso",
+    "brand": "The Barn",
+    "price": 17,
+    "description": "Vibrant espresso with blueberry jam, milk chocolate, and jasmine aromatics.",
+    "tags": ["single-origin", "espresso", "light-roast", "natural", "berry", "floral"],
+    "rating": 4.9
+  }
+]

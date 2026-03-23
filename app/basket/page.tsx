@@ -1,0 +1,134 @@
+"use client";
+
+import Link from "next/link";
+import { useSyncExternalStore } from "react";
+
+import { useBasket } from "@/src/state/basket-context";
+
+const formatPrice = (value: number) => {
+  return new Intl.NumberFormat("en-GB", {
+    style: "currency",
+    currency: "GBP",
+  }).format(value);
+};
+
+export default function BasketPage() {
+  const { items, totalItems, totalPrice, updateQuantity, removeItem, clearBasket } =
+    useBasket();
+  const isHydrated = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
+
+  const displayItems = isHydrated ? items : [];
+  const displayTotalItems = isHydrated ? totalItems : 0;
+  const displayTotalPrice = isHydrated ? totalPrice : 0;
+
+  return (
+    <div className="app-page px-4 py-10 sm:px-8">
+      <main className="mx-auto flex w-full max-w-6xl flex-col gap-6">
+        <header className="flex items-end justify-between gap-4">
+          <div>
+            <h1 className="text-3xl font-semibold tracking-tight">Basket</h1>
+            <p className="app-muted mt-1 text-sm">
+              {displayTotalItems} {displayTotalItems === 1 ? "item" : "items"} in your basket
+            </p>
+          </div>
+
+          {displayItems.length > 0 ? (
+            <button
+              type="button"
+              onClick={clearBasket}
+              className="app-button-secondary rounded-lg px-4 py-2 text-sm"
+            >
+              Clear basket
+            </button>
+          ) : null}
+        </header>
+
+        {displayItems.length === 0 ? (
+          <section className="app-surface rounded-2xl p-8 text-center">
+            <p className="app-muted mb-4">Your basket is empty.</p>
+            <Link
+              href="/products"
+              className="app-button-primary inline-flex rounded-lg px-4 py-2 text-sm font-medium"
+            >
+              Browse products
+            </Link>
+          </section>
+        ) : (
+          <>
+            <section className="app-surface rounded-2xl p-4 sm:p-6">
+              <ul className="divide-y divide-zinc-200">
+                {displayItems.map((item) => {
+                  const lineTotal = item.price * item.quantity;
+
+                  return (
+                    <li
+                      key={item.id}
+                      className="grid gap-4 py-4 sm:grid-cols-[1fr_auto] sm:items-center"
+                    >
+                      <div>
+                        <p className="app-muted text-xs uppercase tracking-wide">
+                          {item.brand}
+                        </p>
+                        <h2 className="text-lg font-semibold">{item.name}</h2>
+                        <p className="app-muted text-sm">
+                          {formatPrice(item.price)} each
+                        </p>
+                      </div>
+
+                      <div className="flex flex-wrap items-center gap-2 sm:justify-end">
+                        <button
+                          type="button"
+                          onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                          className="app-button-secondary h-9 w-9 rounded-lg"
+                          aria-label={`Decrease quantity of ${item.name}`}
+                        >
+                          -
+                        </button>
+
+                        <span className="inline-flex min-w-10 justify-center text-sm font-medium">
+                          {item.quantity}
+                        </span>
+
+                        <button
+                          type="button"
+                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                          className="app-button-secondary h-9 w-9 rounded-lg"
+                          aria-label={`Increase quantity of ${item.name}`}
+                        >
+                          +
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => removeItem(item.id)}
+                          className="app-button-secondary rounded-lg px-3 py-2 text-sm"
+                        >
+                          Remove
+                        </button>
+
+                        <p className="ml-1 min-w-20 text-right text-sm font-semibold">
+                          {formatPrice(lineTotal)}
+                        </p>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            </section>
+
+            <section className="app-surface rounded-2xl p-4 sm:p-6">
+              <div className="flex items-center justify-between">
+                <p className="text-lg font-semibold">Total</p>
+                <p className="text-2xl font-semibold">{formatPrice(displayTotalPrice)}</p>
+              </div>
+            </section>
+          </>
+        )}
+      </main>
+    </div>
+  );
+}
