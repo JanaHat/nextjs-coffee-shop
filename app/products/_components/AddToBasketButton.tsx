@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useSyncExternalStore } from "react";
 
 import { useAppDispatch, useAppSelector } from "@/src/state/hooks";
@@ -47,7 +48,7 @@ export function AddToBasketButton({
   };
 
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex flex-col items-start gap-2">
       {!showQuantityControls ? (
         <button
           type="button"
@@ -95,6 +96,15 @@ export function AddToBasketButton({
           </button>
         </div>
       )}
+
+      {showQuantityControls ? (
+        <Link
+          href="/basket"
+          className="inline-flex h-10 items-center rounded-lg border border-yellow-400 px-5 text-sm font-medium text-(--app-text) transition hover:bg-(--app-chip-bg)"
+        >
+          Go to basket
+        </Link>
+      ) : null}
     </div>
   );
 }
