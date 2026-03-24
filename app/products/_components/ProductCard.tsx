@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import type { Product } from "@/src/types/product";
@@ -13,18 +14,42 @@ type ProductCardProps = {
   product: Product;
 };
 
+const getStarRating = (rating: number) => {
+  const fullStars = Math.round(rating);
+
+  return Array.from({ length: 5 }, (_, index) => (index < fullStars ? "★" : "☆")).join(
+    "",
+  );
+};
+
 export function ProductCard({ product }: ProductCardProps) {
   return (
     <li className="app-surface rounded-2xl p-4 shadow-sm transition hover:shadow-md">
+      <div className="flex mb-4 justify-between overflow-hidden">
+        <Image
+          src={product.imageUrl ?? `/${product.id}.webp`}
+          alt={`${product.name} by ${product.brand}`}
+          width={640}
+          height={640}
+          className="h-48 w-[50%] object-scale-down"
+        />
+
+        <div className="mb-4 flex w-[50%] flex-col items-center justify-center text-sm">
+          <span className="font-semibold">{formatPrice(product.price)}</span>
+          <span
+            className="app-muted text-base tracking-wide"
+            aria-label={`${product.rating.toFixed(1)} out of 5 stars`}
+            title={`${product.rating.toFixed(1)} / 5`}
+          >
+            {getStarRating(product.rating)}
+          </span>
+        </div>
+      </div>
+
       <div className="mb-3 space-y-1">
         <p className="text-xs uppercase tracking-wide text-zinc-500">{product.brand}</p>
         <h2 className="text-lg font-semibold leading-tight">{product.name}</h2>
         <p className="app-muted text-sm">{product.description}</p>
-      </div>
-
-      <div className="mb-4 flex items-center justify-between text-sm">
-        <span className="font-semibold">{formatPrice(product.price)}</span>
-        <span className="app-muted">Rating {product.rating.toFixed(1)}</span>
       </div>
 
       <div className="mb-4 flex flex-wrap gap-2">

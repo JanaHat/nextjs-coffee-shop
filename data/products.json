@@ -6,7 +6,8 @@
     "price": 16.9,
     "description": "Floral and citrus-forward single-origin coffee with a tea-like body, ideal for pour-over.",
     "tags": ["single-origin", "filter", "light-roast", "washed", "floral", "citrus"],
-    "rating": 4.8
+    "rating": 4.8,
+    "imageUrl": "/coffee-001.webp"
   },
   {
     "id": "coffee-002",
@@ -15,7 +16,8 @@
     "price": 14.5,
     "description": "Balanced espresso profile with caramel sweetness, red fruit, and smooth finish.",
     "tags": ["single-origin", "espresso", "medium-roast", "washed", "caramel"],
-    "rating": 4.6
+    "rating": 4.6,
+    "imageUrl": "/coffee-002.webp"
   },
   {
     "id": "coffee-003",
@@ -24,7 +26,8 @@
     "price": 13,
     "description": "Approachable daily blend with chocolate and roasted nut notes for multiple brew methods.",
     "tags": ["blend", "espresso", "filter", "medium-roast", "chocolate", "nutty"],
-    "rating": 4.4
+    "rating": 4.4,
+    "imageUrl": "/coffee-003.webp"
   },
   {
     "id": "coffee-004",
@@ -33,7 +36,8 @@
     "price": 17.2,
     "description": "Juicy blackcurrant and grapefruit with sparkling acidity and clean sweetness.",
     "tags": ["single-origin", "filter", "light-roast", "washed", "berry", "citrus"],
-    "rating": 4.9
+    "rating": 4.9,
+    "imageUrl": "/coffee-004.webp"
   },
   {
     "id": "coffee-005",
@@ -49,7 +53,8 @@
       "chocolate",
       "nutty"
     ],
-    "rating": 4.3
+    "rating": 4.3,
+    "imageUrl": "/coffee-005.webp"
   },
   {
     "id": "coffee-006",
@@ -58,7 +63,8 @@
     "price": 15.4,
     "description": "Sweet stone fruit and cocoa in a medium-bodied cup for filter and AeroPress.",
     "tags": ["single-origin", "filter", "medium-roast", "washed", "stone-fruit", "cocoa"],
-    "rating": 4.5
+    "rating": 4.5,
+    "imageUrl": "/coffee-006.webp"
   },
   {
     "id": "coffee-007",
@@ -67,7 +73,8 @@
     "price": 14.9,
     "description": "Full-flavored decaf with toffee sweetness and gentle citrus, no compromise cup.",
     "tags": ["single-origin", "decaf", "filter", "espresso", "medium-roast", "sweet"],
-    "rating": 4.4
+    "rating": 4.4,
+    "imageUrl": "/coffee-007.webp"
   },
   {
     "id": "coffee-008",
@@ -76,7 +83,8 @@
     "price": 16.1,
     "description": "Red apple and black tea notes with silky mouthfeel and elegant finish.",
     "tags": ["single-origin", "filter", "light-roast", "washed", "tea-like", "apple"],
-    "rating": 4.7
+    "rating": 4.7,
+    "imageUrl": "/coffee-008.webp"
   },
   {
     "id": "coffee-009",
@@ -85,7 +93,8 @@
     "price": 12.5,
     "description": "Classic espresso blend with dark chocolate body and syrupy crema.",
     "tags": ["blend", "espresso", "medium-roast", "chocolate", "daily"],
-    "rating": 4.2
+    "rating": 4.2,
+    "imageUrl": "/coffee-009.webp"
   },
   {
     "id": "coffee-010",
@@ -94,7 +103,8 @@
     "price": 13.9,
     "description": "Brown sugar and plum notes with balanced acidity and clean finish.",
     "tags": ["single-origin", "filter", "medium-roast", "washed", "plum", "sweet"],
-    "rating": 4.3
+    "rating": 4.3,
+    "imageUrl": "/coffee-010.webp"
   },
   {
     "id": "coffee-011",
@@ -103,7 +113,8 @@
     "price": 15.8,
     "description": "Honey sweetness, orange peel, and milk chocolate in a versatile profile.",
     "tags": ["single-origin", "espresso", "filter", "medium-roast", "honey", "orange"],
-    "rating": 4.6
+    "rating": 4.6,
+    "imageUrl": "/coffee-011.webp"
   },
   {
     "id": "coffee-012",
@@ -112,7 +123,8 @@
     "price": 17.8,
     "description": "Jammy blueberry and tropical fruit notes with perfumed aromatics.",
     "tags": ["single-origin", "filter", "light-roast", "natural", "berry", "tropical"],
-    "rating": 4.9
+    "rating": 4.9,
+    "imageUrl": "/coffee-012.webp"
   },
   {
     "id": "coffee-013",
@@ -121,7 +133,8 @@
     "price": 11.9,
     "description": "Comforting cup with cocoa, biscuit sweetness, and low bitterness.",
     "tags": ["blend", "filter", "medium-roast", "cocoa", "biscuit"],
-    "rating": 4.1
+    "rating": 4.1,
+    "imageUrl": "/coffee-013.webp"
   },
   {
     "id": "coffee-014",
@@ -130,7 +143,8 @@
     "price": 12.7,
     "description": "Low-acid and heavy-bodied coffee with spice and dark cocoa characteristics.",
     "tags": ["single-origin", "espresso", "dark-roast", "spice", "low-acid"],
-    "rating": 4.2
+    "rating": 4.2,
+    "imageUrl": "/coffee-014.webp"
   },
   {
     "id": "coffee-015",
@@ -139,7 +153,8 @@
     "price": 15.6,
     "description": "Bright and lively cup with citrus zest and black tea complexity.",
     "tags": ["single-origin", "filter", "light-roast", "washed", "citrus", "tea-like"],
-    "rating": 4.6
+    "rating": 4.6,
+    "imageUrl": "/coffee-015.webp"
   },
   {
     "id": "coffee-016",
@@ -148,7 +163,8 @@
     "price": 13.4,
     "description": "Sweet and creamy espresso with toffee, cocoa nib, and cherry finish.",
     "tags": ["blend", "espresso", "medium-roast", "toffee", "cherry"],
-    "rating": 4.5
+    "rating": 4.5,
+    "imageUrl": "/coffee-016.webp"
   },
   {
     "id": "coffee-017",
@@ -164,7 +180,8 @@
       "caramel",
       "stone-fruit"
     ],
-    "rating": 4.4
+    "rating": 4.4,
+    "imageUrl": "/coffee-017.webp"
   },
   {
     "id": "coffee-018",
@@ -173,7 +190,8 @@
     "price": 29.5,
     "description": "Delicate jasmine aromatics with bergamot and honeyed sweetness.",
     "tags": ["single-origin", "filter", "light-roast", "washed", "floral", "premium"],
-    "rating": 5
+    "rating": 5,
+    "imageUrl": "/coffee-018.webp"
   },
   {
     "id": "coffee-019",
@@ -182,7 +200,8 @@
     "price": 13.6,
     "description": "Rich and syrupy with dark fruit and cocoa undertones.",
     "tags": ["single-origin", "espresso", "medium-roast", "cocoa", "dark-fruit"],
-    "rating": 4.3
+    "rating": 4.3,
+    "imageUrl": "/coffee-019.webp"
   },
   {
     "id": "coffee-020",
@@ -191,6 +210,7 @@
     "price": 13.8,
     "description": "Smooth decaf with milk chocolate and orange sweetness.",
     "tags": ["single-origin", "decaf", "filter", "medium-roast", "chocolate", "orange"],
-    "rating": 4.2
+    "rating": 4.2,
+    "imageUrl": "/coffee-020.webp"
   }
 ]
