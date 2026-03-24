@@ -73,7 +73,7 @@ export function AddToBasketButton({
           <button
             type="button"
             onClick={handleRemove}
-            className="inline-flex h-10 w-10 items-center justify-center text-base transition hover:bg-zinc-100"
+            className="inline-flex h-10 w-10 items-center justify-center text-base transition hover:bg-(--app-chip-bg)"
             aria-label={`Remove ${product.name} from basket`}
             title="Remove from basket"
           >
@@ -87,7 +87,7 @@ export function AddToBasketButton({
           <button
             type="button"
             onClick={handleAdd}
-            className="inline-flex h-10 w-10 items-center justify-center text-lg font-semibold transition hover:bg-zinc-100"
+            className="inline-flex h-10 w-10 items-center justify-center text-lg font-semibold transition hover:bg-(--app-chip-bg)"
             aria-label={`Add one more ${product.name} to basket`}
             title="Add one more"
           >

@@ -57,9 +57,9 @@ export function ProductCard({ product }: ProductCardProps) {
       </div>
 
       <div className="mb-3 space-y-1">
-        <p className="text-xs uppercase tracking-wide text-zinc-500">{product.brand}</p>
+        <p className="app-muted text-xs uppercase tracking-wide">{product.brand}</p>
         <h2 className="text-lg font-semibold leading-tight">{product.name}</h2>
-        <p className="app-muted text-sm">{product.description}</p>
+        <p className="text-sm text-(--app-text)">{product.description}</p>
       </div>
 
       <div className="mb-4 flex flex-wrap gap-2">

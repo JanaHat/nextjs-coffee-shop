@@ -100,7 +100,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
 
         <article className="app-surface rounded-2xl p-6 sm:p-8">
           <div className="grid gap-6 md:grid-cols-2">
-            <div className="overflow-hidden rounded-xl border border-zinc-200 bg-zinc-100">
+            <div className="app-surface overflow-hidden rounded-xl">
               <Image
                 src={product.imageUrl ?? `/${product.id}.webp`}
                 alt={`${product.name} by ${product.brand}`}
@@ -136,8 +136,8 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
           </div>
 
           <div className="mt-6">
-            <p className="app-muted text-sm leading-6">{descriptionPrimary}</p>
-            <p className="app-muted mt-4 text-sm leading-6">{descriptionSecondary}</p>
+            <p className="text-sm leading-6 text-(--app-text)">{descriptionPrimary}</p>
+            <p className="mt-4 text-sm leading-6 text-(--app-text)">{descriptionSecondary}</p>
           </div>
 
           <div className="mt-6 flex flex-wrap gap-2">

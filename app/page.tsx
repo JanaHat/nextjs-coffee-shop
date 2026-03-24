@@ -7,7 +7,7 @@ export default function Home() {
         <p className="app-muted mb-3 text-sm font-medium uppercase tracking-wide">
           Technical Test
         </p>
-        <h1 className="mb-4 text-3xl font-semibold tracking-tight text-zinc-900">
+        <h1 className="mb-4 text-3xl font-semibold tracking-tight">
           Coffee Product Catalogue
         </h1>
         <p className="app-muted mb-6">

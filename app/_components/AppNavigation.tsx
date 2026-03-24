@@ -38,7 +38,7 @@ export function AppNavigation() {
               🛒
             </span>
             Basket
-            <span className="ml-2 rounded-full bg-zinc-900 px-2 py-0.5 text-xs text-white">
+            <span className="ml-2 rounded-full bg-[#6d4f38] px-2 py-0.5 text-xs text-[#fff8ef]">
               {basketCount}
             </span>
           </Link>

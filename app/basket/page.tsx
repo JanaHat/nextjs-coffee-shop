@@ -69,7 +69,7 @@ export default function BasketPage() {
         ) : (
           <>
             <section className="app-surface rounded-2xl p-4 sm:p-6">
-              <ul className="divide-y divide-zinc-200">
+              <ul className="divide-y divide-(--app-border)">
                 {displayItems.map((item) => {
                   const lineTotal = item.price * item.quantity;
 
@@ -79,7 +79,7 @@ export default function BasketPage() {
                       className="grid gap-4 py-4 sm:grid-cols-[1fr_auto] sm:items-center"
                     >
                       <div className="flex items-center gap-4">
-                        <div className="h-20 w-20 overflow-hidden rounded-lg border border-zinc-200 bg-zinc-100">
+                        <div className="app-surface h-20 w-20 overflow-hidden rounded-lg">
                           <Image
                             src={`/${item.id}.webp`}
                             alt={`${item.name} by ${item.brand}`}
