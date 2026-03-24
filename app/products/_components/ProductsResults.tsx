@@ -32,7 +32,7 @@ export async function ProductsResults({
   return (
     <>
       <section className="space-y-4">
-        <p className="app-muted text-sm">
+        <p className="text-sm text-(--app-text)">
           Showing <span className="font-medium">{result.items.length}</span> of{" "}
           <span className="font-medium">{result.total}</span> coffees
         </p>

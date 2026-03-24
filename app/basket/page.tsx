@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 
 import { useAppDispatch, useAppSelector } from "@/src/state/hooks";
@@ -48,7 +49,7 @@ export default function BasketPage() {
             <button
               type="button"
               onClick={() => dispatch(clearBasket())}
-              className="app-button-secondary rounded-lg px-4 py-2 text-sm"
+              className="rounded-lg bg-red-600 px-4 py-2 text-sm text-white transition hover:bg-red-500"
             >
               Clear basket
             </button>
@@ -68,7 +69,7 @@ export default function BasketPage() {
         ) : (
           <>
             <section className="app-surface rounded-2xl p-4 sm:p-6">
-              <ul className="divide-y divide-zinc-200">
+              <ul className="divide-y divide-(--app-border)">
                 {displayItems.map((item) => {
                   const lineTotal = item.price * item.quantity;
 
@@ -77,14 +78,26 @@ export default function BasketPage() {
                       key={item.id}
                       className="grid gap-4 py-4 sm:grid-cols-[1fr_auto] sm:items-center"
                     >
-                      <div>
-                        <p className="app-muted text-xs uppercase tracking-wide">
-                          {item.brand}
-                        </p>
-                        <h2 className="text-lg font-semibold">{item.name}</h2>
-                        <p className="app-muted text-sm">
-                          {formatPrice(item.price)} each
-                        </p>
+                      <div className="flex items-center gap-4">
+                        <div className="app-surface h-20 w-20 overflow-hidden rounded-lg">
+                          <Image
+                            src={`/${item.id}.webp`}
+                            alt={`${item.name} by ${item.brand}`}
+                            width={160}
+                            height={160}
+                            className="h-full w-full object-cover"
+                          />
+                        </div>
+
+                        <div>
+                          <p className="app-muted text-xs uppercase tracking-wide">
+                            {item.brand}
+                          </p>
+                          <h2 className="text-lg font-semibold">{item.name}</h2>
+                          <p className="app-muted text-sm">
+                            {formatPrice(item.price)} each
+                          </p>
+                        </div>
                       </div>
 
                       <div className="flex flex-wrap items-center gap-2 sm:justify-end">
