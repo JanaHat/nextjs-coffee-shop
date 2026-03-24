@@ -5,6 +5,7 @@
     "brand": "Square Mile",
     "price": 16.9,
     "description": "Floral and citrus-forward single-origin coffee with a tea-like body, ideal for pour-over.",
+    "detailedDescreption": "A bright, floral Ethiopian single-origin with layered citrus sweetness and a tea-like body. Best enjoyed as a pour-over where its clarity, delicate aromatics, and clean finish can fully shine.",
     "tags": ["single-origin", "filter", "light-roast", "washed", "floral", "citrus"],
     "rating": 4.8,
     "imageUrl": "/coffee-001.webp"
@@ -15,6 +16,7 @@
     "brand": "Square Mile",
     "price": 14.5,
     "description": "Balanced espresso profile with caramel sweetness, red fruit, and smooth finish.",
+    "detailedDescreption": "A balanced Colombian espresso that combines caramel sweetness with soft red-fruit notes. It delivers a rounded body and a smooth, lingering finish that works beautifully with or without milk.",
     "tags": ["single-origin", "espresso", "medium-roast", "washed", "caramel"],
     "rating": 4.6,
     "imageUrl": "/coffee-002.webp"
@@ -25,6 +27,7 @@
     "brand": "Blue Bottle",
     "price": 13,
     "description": "Approachable daily blend with chocolate and roasted nut notes for multiple brew methods.",
+    "detailedDescreption": "An approachable house blend designed for everyday brewing. Expect familiar chocolate and roasted nut character with dependable balance across espresso, filter, and immersion methods.",
     "tags": ["blend", "espresso", "filter", "medium-roast", "chocolate", "nutty"],
     "rating": 4.4,
     "imageUrl": "/coffee-003.webp"
@@ -35,6 +38,7 @@
     "brand": "Origin Coffee",
     "price": 17.2,
     "description": "Juicy blackcurrant and grapefruit with sparkling acidity and clean sweetness.",
+    "detailedDescreption": "A lively Kenyan lot with signature blackcurrant intensity, grapefruit brightness, and sparkling acidity. The cup is juicy yet clean, with a sweet finish that keeps it elegant and vibrant.",
     "tags": ["single-origin", "filter", "light-roast", "washed", "berry", "citrus"],
     "rating": 4.9,
     "imageUrl": "/coffee-004.webp"
@@ -45,6 +49,7 @@
     "brand": "Assembly",
     "price": 12.8,
     "description": "Chocolate-heavy cup with hazelnut sweetness and low acidity, great for milk drinks.",
+    "detailedDescreption": "A comforting Brazilian natural with chocolate-forward depth, hazelnut sweetness, and very low acidity. Its fuller body makes it especially satisfying in espresso and milk-based drinks.",
     "tags": [
       "single-origin",
       "espresso",
@@ -62,6 +67,7 @@
     "brand": "Pact Coffee",
     "price": 15.4,
     "description": "Sweet stone fruit and cocoa in a medium-bodied cup for filter and AeroPress.",
+    "detailedDescreption": "A versatile Guatemalan coffee offering sweet stone-fruit notes layered with gentle cocoa. Medium-bodied and balanced, it performs consistently in filter brews and AeroPress recipes.",
     "tags": ["single-origin", "filter", "medium-roast", "washed", "stone-fruit", "cocoa"],
     "rating": 4.5,
     "imageUrl": "/coffee-006.webp"
@@ -72,6 +78,7 @@
     "brand": "Blue Bottle",
     "price": 14.9,
     "description": "Full-flavored decaf with toffee sweetness and gentle citrus, no compromise cup.",
+    "detailedDescreption": "A high-quality sugarcane-process decaf that keeps full flavour in the cup. Rich toffee sweetness meets mild citrus lift, delivering a satisfying coffee experience without compromise.",
     "tags": ["single-origin", "decaf", "filter", "espresso", "medium-roast", "sweet"],
     "rating": 4.4,
     "imageUrl": "/coffee-007.webp"
@@ -82,6 +89,7 @@
     "brand": "Origin Coffee",
     "price": 16.1,
     "description": "Red apple and black tea notes with silky mouthfeel and elegant finish.",
+    "detailedDescreption": "An elegant Rwandan coffee with red apple brightness and black-tea delicacy. The silky mouthfeel and polished finish make it a refined choice for clean filter preparation.",
     "tags": ["single-origin", "filter", "light-roast", "washed", "tea-like", "apple"],
     "rating": 4.7,
     "imageUrl": "/coffee-008.webp"
@@ -92,6 +100,7 @@
     "brand": "Assembly",
     "price": 12.5,
     "description": "Classic espresso blend with dark chocolate body and syrupy crema.",
+    "detailedDescreption": "A classic espresso blend built for consistency and body. Dark chocolate richness, low-fruit profile, and syrupy crema make it ideal for daily shots and milk drinks.",
     "tags": ["blend", "espresso", "medium-roast", "chocolate", "daily"],
     "rating": 4.2,
     "imageUrl": "/coffee-009.webp"
@@ -102,6 +111,7 @@
     "brand": "Pact Coffee",
     "price": 13.9,
     "description": "Brown sugar and plum notes with balanced acidity and clean finish.",
+    "detailedDescreption": "A sweet and balanced Peruvian coffee featuring brown sugar depth and subtle plum fruit. Its moderate acidity and clean finish make it easy to enjoy across brewing styles.",
     "tags": ["single-origin", "filter", "medium-roast", "washed", "plum", "sweet"],
     "rating": 4.3,
     "imageUrl": "/coffee-010.webp"
@@ -112,6 +122,7 @@
     "brand": "The Barn",
     "price": 15.8,
     "description": "Honey sweetness, orange peel, and milk chocolate in a versatile profile.",
+    "detailedDescreption": "A versatile Costa Rican coffee with honey-like sweetness, orange-peel brightness, and milk-chocolate smoothness. Balanced enough for both espresso and filter use.",
     "tags": ["single-origin", "espresso", "filter", "medium-roast", "honey", "orange"],
     "rating": 4.6,
     "imageUrl": "/coffee-011.webp"
@@ -122,6 +133,7 @@
     "brand": "Square Mile",
     "price": 17.8,
     "description": "Jammy blueberry and tropical fruit notes with perfumed aromatics.",
+    "detailedDescreption": "A fruit-forward natural Ethiopian with jammy blueberry, tropical accents, and perfumed aromatics. Expect expressive sweetness and a vibrant cup profile.",
     "tags": ["single-origin", "filter", "light-roast", "natural", "berry", "tropical"],
     "rating": 4.9,
     "imageUrl": "/coffee-012.webp"
@@ -132,6 +144,7 @@
     "brand": "Blue Bottle",
     "price": 11.9,
     "description": "Comforting cup with cocoa, biscuit sweetness, and low bitterness.",
+    "detailedDescreption": "A smooth weekend blend with cocoa warmth, biscuit-like sweetness, and low perceived bitterness. Easy-drinking and approachable for any time of day.",
     "tags": ["blend", "filter", "medium-roast", "cocoa", "biscuit"],
     "rating": 4.1,
     "imageUrl": "/coffee-013.webp"
@@ -142,6 +155,7 @@
     "brand": "Origin Coffee",
     "price": 12.7,
     "description": "Low-acid and heavy-bodied coffee with spice and dark cocoa characteristics.",
+    "detailedDescreption": "A distinctive monsooned profile with heavy body, very low acidity, and spicy dark-cocoa depth. Great for those who prefer bold, earthy, and intense cups.",
     "tags": ["single-origin", "espresso", "dark-roast", "spice", "low-acid"],
     "rating": 4.2,
     "imageUrl": "/coffee-014.webp"
@@ -152,6 +166,7 @@
     "brand": "Assembly",
     "price": 15.6,
     "description": "Bright and lively cup with citrus zest and black tea complexity.",
+    "detailedDescreption": "A bright Burundi with zesty citrus lift and black-tea complexity. Lively acidity is balanced by sweetness, creating a dynamic yet clean and structured cup.",
     "tags": ["single-origin", "filter", "light-roast", "washed", "citrus", "tea-like"],
     "rating": 4.6,
     "imageUrl": "/coffee-015.webp"
@@ -162,6 +177,7 @@
     "brand": "Pact Coffee",
     "price": 13.4,
     "description": "Sweet and creamy espresso with toffee, cocoa nib, and cherry finish.",
+    "detailedDescreption": "A sweet, creamy espresso blend featuring toffee richness, cocoa nib depth, and a soft cherry finish. Built for comfort, balance, and dependable daily extraction.",
     "tags": ["blend", "espresso", "medium-roast", "toffee", "cherry"],
     "rating": 4.5,
     "imageUrl": "/coffee-016.webp"
@@ -172,6 +188,7 @@
     "brand": "The Barn",
     "price": 14.2,
     "description": "Soft caramel sweetness and stone-fruit notes with rounded body.",
+    "detailedDescreption": "A rounded Nicaraguan profile with soft caramel sweetness and gentle stone-fruit nuance. Medium body and smooth structure make it broadly appealing.",
     "tags": [
       "single-origin",
       "filter",
@@ -189,6 +206,7 @@
     "brand": "The Barn",
     "price": 29.5,
     "description": "Delicate jasmine aromatics with bergamot and honeyed sweetness.",
+    "detailedDescreption": "A premium Geisha lot showcasing delicate jasmine aromatics, bergamot-like citrus florals, and honeyed sweetness. Complex, refined, and ideal for careful filter brewing.",
     "tags": ["single-origin", "filter", "light-roast", "washed", "floral", "premium"],
     "rating": 5,
     "imageUrl": "/coffee-018.webp"
@@ -199,6 +217,7 @@
     "brand": "Square Mile",
     "price": 13.6,
     "description": "Rich and syrupy with dark fruit and cocoa undertones.",
+    "detailedDescreption": "A rich Ugandan coffee with syrupy texture, dark-fruit depth, and cocoa undertones. Full flavour and body make it excellent for espresso-focused brewing.",
     "tags": ["single-origin", "espresso", "medium-roast", "cocoa", "dark-fruit"],
     "rating": 4.3,
     "imageUrl": "/coffee-019.webp"
@@ -209,6 +228,7 @@
     "brand": "Blue Bottle",
     "price": 13.8,
     "description": "Smooth decaf with milk chocolate and orange sweetness.",
+    "detailedDescreption": "A smooth and approachable decaf with milk-chocolate sweetness and a gentle orange note. Balanced, mellow, and suitable for both afternoon and evening cups.",
     "tags": ["single-origin", "decaf", "filter", "medium-roast", "chocolate", "orange"],
     "rating": 4.2,
     "imageUrl": "/coffee-020.webp"
