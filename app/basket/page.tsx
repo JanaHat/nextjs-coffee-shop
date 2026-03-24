@@ -49,7 +49,7 @@ export default function BasketPage() {
             <button
               type="button"
               onClick={() => dispatch(clearBasket())}
-              className="app-button-secondary rounded-lg px-4 py-2 text-sm"
+              className="rounded-lg bg-red-600 px-4 py-2 text-sm text-white transition hover:bg-red-500"
             >
               Clear basket
             </button>
