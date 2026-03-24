@@ -38,7 +38,7 @@ export function ProductCard({ product }: ProductCardProps) {
         <div className="mb-4 flex w-[50%] flex-col items-center justify-center text-sm">
           <span className="font-semibold">{formatPrice(product.price)}</span>
           <span
-            className="app-muted text-base tracking-wide"
+            className="text-base tracking-wide text-green-600"
             aria-label={`${product.rating.toFixed(1)} out of 5 stars`}
             title={`${product.rating.toFixed(1)} / 5`}
           >

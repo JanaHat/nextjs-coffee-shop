@@ -115,7 +115,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
               <h1 className="text-3xl font-semibold tracking-tight">{product.name}</h1>
               <p className="text-2xl font-semibold">{formatPrice(product.price)}</p>
               <p
-                className="app-muted text-2xl tracking-wide"
+                className="text-2xl tracking-wide text-green-600"
                 aria-label={`${product.rating.toFixed(1)} out of 5 stars`}
                 title={`${product.rating.toFixed(1)} / 5`}
               >
