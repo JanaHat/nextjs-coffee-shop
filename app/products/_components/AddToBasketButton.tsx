@@ -65,8 +65,8 @@ export function AddToBasketButton({
         <div
           className={
             compact
-              ? "mt-2 inline-flex items-center rounded-lg border border-zinc-300"
-              : "inline-flex items-center rounded-lg border border-zinc-300"
+              ? "mt-2 inline-flex items-center rounded-lg border border-yellow-400"
+              : "inline-flex items-center rounded-lg border border-yellow-400"
           }
           aria-label={`${quantity} ${quantity === 1 ? "item" : "items"} in basket`}
         >
