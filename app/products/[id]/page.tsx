@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { AddToBasketButton } from "@/app/products/[id]/_components/AddToBasketButton";
+import { AddToBasketButton } from "@/app/products/_components/AddToBasketButton";
 import { getProductById } from "@/src/lib/products";
 
 export const revalidate = 300;

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { AddToBasketButton } from "@/app/products/_components/AddToBasketButton";
 import type { Product } from "@/src/types/product";
 
 const formatPrice = (value: number) => {
@@ -43,6 +44,15 @@ export function ProductCard({ product }: ProductCardProps) {
           >
             {getStarRating(product.rating)}
           </span>
+          <AddToBasketButton
+            product={{
+              id: product.id,
+              name: product.name,
+              brand: product.brand,
+              price: product.price,
+            }}
+            compact
+          />
         </div>
       </div>
 
