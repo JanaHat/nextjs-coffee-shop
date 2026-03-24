@@ -41,8 +41,22 @@ export function AppNavigation() {
               isBasket ? "ring-2 ring-yellow-500/50" : "",
             ].join(" ")}
           >
-            <span aria-hidden="true" className="mr-1">
-              🛒
+            <span aria-hidden="true" className="mr-1 inline-flex">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                className="h-4 w-4 text-black"
+              >
+                <path d="M4 9h16l-1.2 9.2a2 2 0 0 1-2 1.8H7.2a2 2 0 0 1-2-1.8z" />
+                <path d="M8 9 11 4" />
+                <path d="m16 9-3-5" />
+                <path d="M9 13v3" />
+                <path d="M12 13v3" />
+                <path d="M15 13v3" />
+              </svg>
             </span>
             Basket
             <span className="ml-2 rounded-full bg-white px-2 py-0.5 text-xs text-black">
