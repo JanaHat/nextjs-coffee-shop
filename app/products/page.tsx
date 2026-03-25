@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 
 import { ActiveFilters } from "@/app/products/_components/ActiveFilters";
@@ -8,6 +9,14 @@ import { getTagOptions, toSearchParams } from "@/app/products/_lib/search-params
 import { parseProductsQuery } from "@/src/lib/products";
 
 export const revalidate = 300;
+
+export const metadata: Metadata = {
+  title: "Products",
+  description: "Browse, search, and filter specialty coffee products.",
+  alternates: {
+    canonical: "/products",
+  },
+};
 
 type ProductsPageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
