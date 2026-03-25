@@ -11,14 +11,20 @@ type ProductsResultsProps = {
   searchParamsString: string;
 };
 
+const LOAD_MORE_BATCH_SIZE = 12;
+
 export async function ProductsResults({
   query,
   searchParamsString,
 }: ProductsResultsProps) {
-  const result = getProducts(query);
+  const loadedCountTarget = query.page * LOAD_MORE_BATCH_SIZE;
+  const result = getProducts({
+    ...query,
+    page: 1,
+    pageSize: loadedCountTarget,
+  });
 
-  const hasPrevious = query.page > 1;
-  const hasNext = query.page * query.pageSize < result.total;
+  const hasNext = loadedCountTarget < result.total;
   const hasActiveFilters = Boolean(
     query.q ||
     query.tag ||
@@ -59,10 +65,9 @@ export async function ProductsResults({
       </section>
 
       <ProductsPagination
-        page={query.page}
-        hasPrevious={hasPrevious}
+        loadedCount={result.items.length}
+        total={result.total}
         hasNext={hasNext}
-        previousHref={buildProductsHref(urlSearchParams, { page: query.page - 1 })}
         nextHref={buildProductsHref(urlSearchParams, { page: query.page + 1 })}
       />
     </>
