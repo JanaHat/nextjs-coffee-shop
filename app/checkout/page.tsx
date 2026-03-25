@@ -6,12 +6,10 @@ import { useState } from "react";
 
 import { CheckoutCustomerForm } from "@/app/checkout/_components/CheckoutCustomerForm";
 import { CheckoutOrderSummary } from "@/app/checkout/_components/CheckoutOrderSummary";
-import { LastOrderPanel } from "@/app/checkout/_components/LastOrderPanel";
 import { useAppDispatch, useAppSelector } from "@/src/state/hooks";
 import {
   selectCheckoutErrorMessage,
   selectCheckoutSubmitting,
-  selectLastOrder,
 } from "@/src/state/selectors/checkout-selectors";
 import {
   selectBasketHydrated,
@@ -116,7 +114,6 @@ export default function CheckoutPage() {
 
   const isSubmitting = useAppSelector(selectCheckoutSubmitting);
   const errorMessage = useAppSelector(selectCheckoutErrorMessage);
-  const lastOrder = useAppSelector(selectLastOrder);
 
   const displayItems = isHydrated ? items : [];
 
@@ -225,8 +222,6 @@ export default function CheckoutPage() {
             />
           </div>
         )}
-
-        {lastOrder ? <LastOrderPanel order={lastOrder} /> : null}
       </main>
     </div>
   );
