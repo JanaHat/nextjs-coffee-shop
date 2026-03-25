@@ -24,9 +24,25 @@ export function Providers({ children }: { children: React.ReactNode }) {
     store.dispatch(hydrateBasket(readBasketItemsFromStorage()));
     store.dispatch(hydrateLastOrder(readLastOrderFromStorage()));
 
+    let previousBasket = JSON.stringify(selectBasketItems(store.getState()));
+    let previousLastOrder = JSON.stringify(selectLastOrder(store.getState()));
+
     const unsubscribe = store.subscribe(() => {
-      writeBasketItemsToStorage(selectBasketItems(store.getState()));
-      writeLastOrderToStorage(selectLastOrder(store.getState()));
+      const nextBasket = selectBasketItems(store.getState());
+      const nextLastOrder = selectLastOrder(store.getState());
+
+      const nextBasketSerialized = JSON.stringify(nextBasket);
+      const nextLastOrderSerialized = JSON.stringify(nextLastOrder);
+
+      if (nextBasketSerialized !== previousBasket) {
+        previousBasket = nextBasketSerialized;
+        writeBasketItemsToStorage(nextBasket);
+      }
+
+      if (nextLastOrderSerialized !== previousLastOrder) {
+        previousLastOrder = nextLastOrderSerialized;
+        writeLastOrderToStorage(nextLastOrder);
+      }
     });
 
     return unsubscribe;
