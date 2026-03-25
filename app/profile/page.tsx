@@ -3,6 +3,14 @@ import { redirect } from "next/navigation";
 
 import { SignOutButton } from "@/app/profile/_components/SignOutButton";
 import { auth } from "@/src/lib/auth";
+import { db } from "@/src/lib/db";
+
+const formatPrice = (value: number) => {
+  return new Intl.NumberFormat("en-GB", {
+    style: "currency",
+    currency: "GBP",
+  }).format(value);
+};
 
 export default async function ProfilePage() {
   const session = await auth();
@@ -10,6 +18,20 @@ export default async function ProfilePage() {
   if (!session?.user?.id) {
     redirect("/auth/sign-in?callbackUrl=/profile");
   }
+
+  const savedOrders = await db.order.findMany({
+    where: {
+      userId: session.user.id,
+      status: "PAID",
+    },
+    include: {
+      items: true,
+    },
+    orderBy: {
+      placedAt: "desc",
+    },
+    take: 20,
+  });
 
   return (
     <div className="app-page px-4 py-10 sm:px-8">
@@ -31,9 +53,47 @@ export default async function ProfilePage() {
 
         <section className="app-surface rounded-2xl p-6">
           <h2 className="text-lg font-semibold">Saved orders</h2>
-          <p className="app-muted mt-1 text-sm">
-            Order history is the next step and will be shown here.
-          </p>
+          {savedOrders.length === 0 ? (
+            <p className="app-muted mt-1 text-sm">
+              No saved orders yet. Complete a checkout while signed in.
+            </p>
+          ) : (
+            <ul className="mt-4 space-y-4">
+              {savedOrders.map((order) => {
+                const totalPrice = order.totalCents / 100;
+                const totalItems = order.items.reduce((sum, item) => sum + item.quantity, 0);
+
+                return (
+                  <li key={order.id} className="rounded-xl border border-(--app-border) p-4">
+                    <p className="text-sm font-medium">Order {order.id}</p>
+                    <p className="app-muted mt-1 text-xs">
+                      {new Date(order.placedAt).toLocaleString()}
+                    </p>
+                    <p className="mt-2 text-sm">
+                      {totalItems} {totalItems === 1 ? "item" : "items"} ·{" "}
+                      {formatPrice(totalPrice)}
+                    </p>
+
+                    <ul className="mt-3 space-y-2">
+                      {order.items.map((item) => (
+                        <li key={item.id} className="flex items-center justify-between gap-3">
+                          <Link
+                            href={`/products/${item.productId}`}
+                            className="text-sm hover:underline"
+                          >
+                            {item.productName}
+                          </Link>
+                          <span className="app-muted text-xs">
+                            {item.quantity} × {formatPrice(item.unitPriceCents / 100)}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
         </section>
       </main>
     </div>
