@@ -57,8 +57,12 @@ export async function ProductsResults({
           </div>
         ) : (
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {result.items.map((product) => (
-              <ProductCard key={product.id} product={product} />
+            {result.items.map((product, index) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                imageLoading={index === 0 ? "eager" : "lazy"}
+              />
             ))}
           </ul>
         )}

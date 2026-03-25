@@ -13,6 +13,7 @@ const formatPrice = (value: number) => {
 
 type ProductCardProps = {
   product: Product;
+  imageLoading?: "lazy" | "eager";
 };
 
 const getStarRating = (rating: number) => {
@@ -23,7 +24,7 @@ const getStarRating = (rating: number) => {
   );
 };
 
-export function ProductCard({ product }: ProductCardProps) {
+export function ProductCard({ product, imageLoading = "lazy" }: ProductCardProps) {
   return (
     <li className="app-surface rounded-2xl p-4 shadow-sm transition hover:shadow-md">
       <div className="flex mb-4 justify-between overflow-hidden">
@@ -32,6 +33,8 @@ export function ProductCard({ product }: ProductCardProps) {
           alt={`${product.name} by ${product.brand}`}
           width={640}
           height={640}
+          loading={imageLoading}
+          fetchPriority={imageLoading === "eager" ? "high" : "auto"}
           className="h-48 w-[50%] object-scale-down"
         />
 
