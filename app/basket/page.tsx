@@ -10,6 +10,7 @@ import {
   selectBasketTotalItems,
   selectBasketTotalPrice,
 } from "@/src/state/selectors/basket-selectors";
+import { selectLastOrder } from "@/src/state/selectors/checkout-selectors";
 import {
   clearBasket,
   removeItem,
@@ -29,6 +30,7 @@ export default function BasketPage() {
   const totalItems = useAppSelector(selectBasketTotalItems);
   const totalPrice = useAppSelector(selectBasketTotalPrice);
   const isHydrated = useAppSelector(selectBasketHydrated);
+  const lastOrder = useAppSelector(selectLastOrder);
 
   const displayItems = isHydrated ? items : [];
   const displayTotalItems = isHydrated ? totalItems : 0;
@@ -160,9 +162,30 @@ export default function BasketPage() {
                 <p className="text-lg font-semibold">Total</p>
                 <p className="text-2xl font-semibold">{formatPrice(displayTotalPrice)}</p>
               </div>
+
+              <div className="mt-4">
+                <Link
+                  href="/checkout"
+                  className="inline-flex rounded-lg bg-yellow-400 px-4 py-2 text-sm font-medium text-black transition hover:bg-yellow-300"
+                >
+                  Proceed to checkout
+                </Link>
+              </div>
             </section>
           </>
         )}
+
+        {lastOrder ? (
+          <section className="app-surface rounded-2xl p-4 sm:p-6">
+            <h2 className="text-lg font-semibold">Last order</h2>
+            <p className="app-muted mt-1 text-sm">
+              {lastOrder.orderId} · {new Date(lastOrder.createdAt).toLocaleString()}
+            </p>
+            <p className="mt-2 text-sm text-(--app-text)">
+              {lastOrder.totalItems} items · {formatPrice(lastOrder.totalPrice)}
+            </p>
+          </section>
+        ) : null}
       </main>
     </div>
   );
