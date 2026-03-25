@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 
@@ -14,6 +15,24 @@ const formatPrice = (value: number) => {
 type AccountOrderDetailPageProps = {
   params: Promise<{ id: string }>;
 };
+
+export async function generateMetadata({
+  params,
+}: AccountOrderDetailPageProps): Promise<Metadata> {
+  const { id } = await params;
+
+  return {
+    title: `Order ${id}`,
+    description: "Order details in your account.",
+    alternates: {
+      canonical: `/account/orders/${id}`,
+    },
+    robots: {
+      index: false,
+      follow: false,
+    },
+  };
+}
 
 export default async function AccountOrderDetailPage({ params }: AccountOrderDetailPageProps) {
   const session = await auth();

@@ -1,9 +1,18 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { SignOutButton } from "@/app/account/_components/SignOutButton";
 import { auth } from "@/src/lib/auth";
 import { db } from "@/src/lib/db";
+
+export const metadata: Metadata = {
+  title: "Account",
+  description: "Manage your account and review past orders.",
+  alternates: {
+    canonical: "/account",
+  },
+};
 
 const formatPrice = (value: number) => {
   return new Intl.NumberFormat("en-GB", {
