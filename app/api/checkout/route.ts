@@ -11,8 +11,6 @@ import type {
   OrderItem,
 } from "@/src/types/order";
 
-const randomPaymentSucceeded = () => Math.random() >= 0.3;
-
 const createOrderId = () => {
   return `MOCK-${Date.now()}-${Math.floor(Math.random() * 100000)}`;
 };
@@ -79,12 +77,7 @@ export async function POST(request: Request) {
   const totalItems = orderItems.reduce((sum, item) => sum + item.quantity, 0);
   const totalPrice = orderItems.reduce((sum, item) => sum + item.lineTotal, 0);
 
-  const paymentSucceeded =
-    forceResult === "success"
-      ? true
-      : forceResult === "failure"
-        ? false
-        : randomPaymentSucceeded();
+  const paymentSucceeded = forceResult === "failure" ? false : true;
 
   if (!paymentSucceeded) {
     const response: CheckoutErrorResponse = {
