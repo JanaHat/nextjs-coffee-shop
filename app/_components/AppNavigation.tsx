@@ -16,12 +16,51 @@ export function AppNavigation() {
 
   const isProducts = pathname.startsWith("/products");
   const isBasket = pathname.startsWith("/basket");
+  const isProfile = pathname.startsWith("/profile");
+  const isSignIn = pathname.startsWith("/auth/sign-in");
+  const isSignUp = pathname.startsWith("/auth/sign-up");
   const basketCount = isHydrated ? totalItems : 0;
 
   return (
     <header className="app-surface sticky top-0 z-20 border-0 border-t-0 px-4 py-3 sm:px-8">
       <nav className="mx-auto flex w-full max-w-6xl items-center justify-end gap-3">
         <div className="flex items-center gap-2">
+          <Link
+            href="/profile"
+            aria-current={isProfile ? "page" : undefined}
+            className={[
+              "inline-flex h-9 items-center rounded-lg px-3 text-sm font-medium transition",
+              "bg-transparent",
+              isProfile ? "underline underline-offset-4" : "hover:underline hover:underline-offset-4",
+            ].join(" ")}
+          >
+            Profile
+          </Link>
+
+          <Link
+            href="/auth/sign-in"
+            aria-current={isSignIn ? "page" : undefined}
+            className={[
+              "inline-flex h-9 items-center rounded-lg px-3 text-sm font-medium transition",
+              "bg-transparent",
+              isSignIn ? "underline underline-offset-4" : "hover:underline hover:underline-offset-4",
+            ].join(" ")}
+          >
+            Sign in
+          </Link>
+
+          <Link
+            href="/auth/sign-up"
+            aria-current={isSignUp ? "page" : undefined}
+            className={[
+              "inline-flex h-9 items-center rounded-lg px-3 text-sm font-medium transition",
+              "bg-transparent",
+              isSignUp ? "underline underline-offset-4" : "hover:underline hover:underline-offset-4",
+            ].join(" ")}
+          >
+            Sign up
+          </Link>
+
           <Link
             href="/products"
             aria-current={isProducts ? "page" : undefined}
