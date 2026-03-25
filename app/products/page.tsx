@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Suspense } from "react";
 
 import { ActiveFilters } from "@/app/products/_components/ActiveFilters";
@@ -39,12 +38,6 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
         <Suspense key={searchParamsString} fallback={<ProductsResultsLoading />}>
           <ProductsResults query={query} searchParamsString={searchParamsString} />
         </Suspense>
-
-        <div className="text-sm">
-          <Link href="/" className="app-muted hover:underline">
-            ← Back to home
-          </Link>
-        </div>
       </main>
     </div>
   );
