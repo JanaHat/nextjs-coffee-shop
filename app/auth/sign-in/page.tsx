@@ -15,7 +15,7 @@ const getSearchParam = (key: string) => {
 
 export default function SignInPage() {
   const router = useRouter();
-  const [callbackUrl] = useState(() => getSearchParam("callbackUrl") || "/profile");
+  const [callbackUrl] = useState(() => getSearchParam("callbackUrl") || "/account");
   const [showRegistered] = useState(() => getSearchParam("registered") === "1");
 
   const [email, setEmail] = useState("");
@@ -50,7 +50,7 @@ export default function SignInPage() {
       <main className="mx-auto w-full max-w-md">
         <section className="app-surface rounded-2xl p-6 sm:p-8">
           <h1 className="text-2xl font-semibold tracking-tight">Sign in</h1>
-          <p className="app-muted mt-1 text-sm">Access your profile and saved orders.</p>
+          <p className="app-muted mt-1 text-sm">Access your account and past orders.</p>
 
           {showRegistered ? (
             <p className="mt-4 rounded-lg border border-green-300 bg-green-50 px-3 py-2 text-sm text-green-700">
