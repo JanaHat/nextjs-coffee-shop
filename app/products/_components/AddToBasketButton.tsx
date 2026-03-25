@@ -23,6 +23,7 @@ export function AddToBasketButton({
   product,
   compact = false,
 }: AddToBasketButtonProps) {
+  const ctaMinWidthClass = "min-w-32 justify-center";
   const dispatch = useAppDispatch();
   const quantity = useAppSelector((state) => selectBasketQuantityById(state, product.id));
   const isClientHydrated = useSyncExternalStore(
@@ -55,8 +56,8 @@ export function AddToBasketButton({
           onClick={handleAdd}
           className={
             compact
-              ? "mt-2 inline-flex rounded-lg bg-yellow-400 px-3 py-2 text-sm font-medium text-black transition hover:bg-yellow-300 cursor-pointer"
-              : "inline-flex h-10 items-center rounded-lg bg-yellow-400 px-4 text-sm font-medium text-black transition hover:bg-yellow-300 cursor-pointer"
+              ? `mt-2 inline-flex rounded-lg bg-yellow-400 px-3 py-2 text-sm font-medium text-black transition hover:bg-yellow-300 cursor-pointer ${ctaMinWidthClass}`
+              : `inline-flex h-10 items-center rounded-lg bg-yellow-400 px-4 text-sm font-medium text-black transition hover:bg-yellow-300 cursor-pointer ${ctaMinWidthClass}`
           }
           aria-label={`Add ${product.name} to basket`}
         >
@@ -66,29 +67,29 @@ export function AddToBasketButton({
         <div
           className={
             compact
-              ? "mt-2 inline-flex items-center rounded-lg border border-yellow-400"
-              : "inline-flex items-center rounded-lg border border-yellow-400"
+              ? `mt-2 grid grid-cols-3 items-center rounded-lg border border-yellow-400 ${ctaMinWidthClass}`
+              : `grid grid-cols-3 items-center rounded-lg border border-yellow-400 ${ctaMinWidthClass}`
           }
           aria-label={`${quantity} ${quantity === 1 ? "item" : "items"} in basket`}
         >
           <button
             type="button"
             onClick={handleRemove}
-            className="inline-flex h-10 w-10 items-center justify-center text-base transition hover:bg-(--app-chip-bg)"
+            className="inline-flex h-10 items-center justify-center text-base transition hover:bg-(--app-chip-bg)"
             aria-label={`Remove ${product.name} from basket`}
             title="Remove from basket"
           >
             🗑
           </button>
 
-          <span className="inline-flex min-w-10 items-center justify-center px-2 text-sm font-medium">
+          <span className="inline-flex items-center justify-center px-2 text-sm font-medium">
             {quantity}
           </span>
 
           <button
             type="button"
             onClick={handleAdd}
-            className="inline-flex h-10 w-10 items-center justify-center text-lg font-semibold transition hover:bg-(--app-chip-bg)"
+            className="inline-flex h-10 items-center justify-center text-lg font-semibold transition hover:bg-(--app-chip-bg)"
             aria-label={`Add one more ${product.name} to basket`}
             title="Add one more"
           >
@@ -100,7 +101,7 @@ export function AddToBasketButton({
       {showQuantityControls ? (
         <Link
           href="/basket"
-          className="inline-flex h-10 items-center rounded-lg border border-yellow-400 px-5 text-sm font-medium text-(--app-text) transition hover:bg-(--app-chip-bg)"
+          className={`inline-flex py-1 items-center rounded-lg border border-yellow-400 text-sm font-medium text-(--app-text) transition hover:bg-(--app-chip-bg) ${ctaMinWidthClass}`}
         >
           Go to basket
         </Link>
