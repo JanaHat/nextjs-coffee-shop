@@ -28,15 +28,17 @@ export function ProductCard({ product, imageLoading = "lazy" }: ProductCardProps
   return (
     <li className="app-surface rounded-2xl p-4 shadow-sm transition hover:shadow-md">
       <div className="flex mb-4 justify-between overflow-hidden">
-        <Image
-          src={product.imageUrl ?? `/${product.id}.webp`}
-          alt={`${product.name} by ${product.brand}`}
-          width={640}
-          height={640}
-          loading={imageLoading}
-          fetchPriority={imageLoading === "eager" ? "high" : "auto"}
-          className="h-48 w-[50%] object-scale-down"
-        />
+        <div className="app-surface h-38 w-[50%] overflow-hidden rounded-xl">
+          <Image
+            src={product.imageUrl ?? `/${product.id}.webp`}
+            alt={`${product.name} by ${product.brand}`}
+            width={640}
+            height={640}
+            loading={imageLoading}
+            fetchPriority={imageLoading === "eager" ? "high" : "auto"}
+            className="h-full w-full object-cover"
+          />
+        </div>
 
         <div className="mb-4 flex w-[50%] flex-col items-center justify-center text-sm">
           <span className="font-semibold">{formatPrice(product.price)}</span>
