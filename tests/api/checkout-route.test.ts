@@ -1,5 +1,18 @@
+import { describe, expect, it, vi } from "vitest";
+
+vi.mock("@/src/lib/auth", () => ({
+  auth: vi.fn(async () => null),
+}));
+
+vi.mock("@/src/lib/db", () => ({
+  db: {
+    order: {
+      create: vi.fn(),
+    },
+  },
+}));
+
 import { POST } from "@/app/api/checkout/route";
-import { describe, expect, it } from "vitest";
 
 describe("POST /api/checkout", () => {
   it("returns 400 for invalid payload", async () => {

@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 
+import { auth } from "@/src/lib/auth";
+import { db } from "@/src/lib/db";
 import { validateCheckoutRequest } from "@/src/lib/checkout-validation";
 import { getProductById } from "@/src/lib/products";
 import type {
@@ -14,6 +16,8 @@ const randomPaymentSucceeded = () => Math.random() >= 0.3;
 const createOrderId = () => {
   return `MOCK-${Date.now()}-${Math.floor(Math.random() * 100000)}`;
 };
+
+const toCents = (value: number) => Math.round(value * 100);
 
 export async function POST(request: Request) {
   let body: unknown;
@@ -92,8 +96,43 @@ export async function POST(request: Request) {
     return NextResponse.json(response, { status: 402 });
   }
 
+  const session = await auth();
+  let orderId = createOrderId();
+
+  if (session?.user?.id) {
+    const persistedOrder = await db.order.create({
+      data: {
+        userId: session.user.id,
+        status: "PAID",
+        currency: "GBP",
+        totalCents: toCents(totalPrice),
+        fullName: customer.fullName,
+        email: customer.email,
+        addressLine1: customer.addressLine1,
+        city: customer.city,
+        postalCode: customer.postalCode,
+        country: customer.country,
+        items: {
+          create: orderItems.map((item) => ({
+            productId: item.id,
+            productName: item.name,
+            productBrand: item.brand,
+            quantity: item.quantity,
+            unitPriceCents: toCents(item.price),
+            imageUrl: item.imageUrl,
+          })),
+        },
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    orderId = persistedOrder.id;
+  }
+
   const order: LastOrder = {
-    orderId: createOrderId(),
+    orderId,
     createdAt: new Date().toISOString(),
     status: "paid",
     customer,

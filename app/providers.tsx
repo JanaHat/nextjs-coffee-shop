@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { SessionProvider } from "next-auth/react";
 import { Provider } from "react-redux";
 
 import { selectBasketItems } from "@/src/state/selectors/basket-selectors";
@@ -48,5 +49,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
     return unsubscribe;
   }, [store]);
 
-  return <Provider store={store}>{children}</Provider>;
+  return (
+    <SessionProvider>
+      <Provider store={store}>{children}</Provider>
+    </SessionProvider>
+  );
 }

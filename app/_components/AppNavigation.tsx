@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { signOut, useSession } from "next-auth/react";
 
 import { useAppSelector } from "@/src/state/hooks";
 import {
@@ -11,17 +12,87 @@ import {
 
 export function AppNavigation() {
   const pathname = usePathname();
+  const { data: session, status } = useSession();
   const totalItems = useAppSelector(selectBasketTotalItems);
   const isHydrated = useAppSelector(selectBasketHydrated);
 
   const isProducts = pathname.startsWith("/products");
   const isBasket = pathname.startsWith("/basket");
+  const isAccount = pathname.startsWith("/account") || pathname.startsWith("/profile");
+  const isSignIn = pathname.startsWith("/auth/sign-in");
+  const isSignUp = pathname.startsWith("/auth/sign-up");
+  const isSignedIn = status === "authenticated" && Boolean(session?.user);
   const basketCount = isHydrated ? totalItems : 0;
 
   return (
     <header className="app-surface sticky top-0 z-20 border-0 border-t-0 px-4 py-3 sm:px-8">
       <nav className="mx-auto flex w-full max-w-6xl items-center justify-end gap-3">
         <div className="flex items-center gap-2">
+          <Link
+            href="/account"
+            aria-current={isAccount ? "page" : undefined}
+            aria-label="Account"
+            className={[
+              "inline-flex h-9 w-9 items-center justify-center rounded-lg text-sm font-medium transition",
+              "bg-transparent",
+              isAccount ? "underline underline-offset-4" : "hover:underline hover:underline-offset-4",
+            ].join(" ")}
+          >
+            <span aria-hidden="true" className="inline-flex">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                className="h-4 w-4"
+              >
+                <circle cx="12" cy="8" r="4" />
+                <path d="M4 20a8 8 0 0 1 16 0" />
+              </svg>
+            </span>
+          </Link>
+
+          {isSignedIn ? (
+            <button
+              type="button"
+              onClick={() => signOut({ callbackUrl: "/products" })}
+              className="inline-flex h-9 items-center rounded-lg px-3 text-sm font-medium transition hover:underline hover:underline-offset-4"
+            >
+              Sign out
+            </button>
+          ) : (
+            <>
+              <Link
+                href="/auth/sign-in"
+                aria-current={isSignIn ? "page" : undefined}
+                className={[
+                  "inline-flex h-9 items-center rounded-lg px-3 text-sm font-medium transition",
+                  "bg-transparent",
+                  isSignIn
+                    ? "underline underline-offset-4"
+                    : "hover:underline hover:underline-offset-4",
+                ].join(" ")}
+              >
+                Sign in
+              </Link>
+
+              <Link
+                href="/auth/sign-up"
+                aria-current={isSignUp ? "page" : undefined}
+                className={[
+                  "inline-flex h-9 items-center rounded-lg px-3 text-sm font-medium transition",
+                  "bg-transparent",
+                  isSignUp
+                    ? "underline underline-offset-4"
+                    : "hover:underline hover:underline-offset-4",
+                ].join(" ")}
+              >
+                Sign up
+              </Link>
+            </>
+          )}
+
           <Link
             href="/products"
             aria-current={isProducts ? "page" : undefined}
