@@ -24,6 +24,7 @@ export function AppNavigation() {
         <div className="flex items-center gap-2">
           <Link
             href="/products"
+            aria-current={isProducts ? "page" : undefined}
             className={[
               "inline-flex h-9 items-center rounded-lg px-3 text-sm font-medium transition",
               "bg-transparent",
@@ -35,6 +36,7 @@ export function AppNavigation() {
 
           <Link
             href="/basket"
+            aria-current={isBasket ? "page" : undefined}
             className={[
               "inline-flex h-9 items-center rounded-lg px-3 text-sm font-medium text-black transition",
               "bg-yellow-400 hover:bg-yellow-300",

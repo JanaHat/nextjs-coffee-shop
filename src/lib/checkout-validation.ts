@@ -12,6 +12,7 @@ type ValidationResult =
 type CheckoutBodyCandidate = Partial<CheckoutRequest>;
 
 const hasText = (value: unknown) => typeof value === "string" && value.trim().length > 0;
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const isPositiveInt = (value: unknown) =>
   typeof value === "number" && Number.isFinite(value) && Number.isInteger(value) && value > 0;
@@ -57,6 +58,8 @@ const validateCustomer = (customer: unknown, errors: ValidationError[]) => {
 
   if (!hasText(value.email)) {
     errors.push({ field: "customer.email", message: "Email is required" });
+  } else if (!EMAIL_REGEX.test(String(value.email).trim())) {
+    errors.push({ field: "customer.email", message: "Email format is invalid" });
   }
 
   if (!hasText(value.addressLine1)) {

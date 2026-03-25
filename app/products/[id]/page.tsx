@@ -106,6 +106,8 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
                 alt={`${product.name} by ${product.brand}`}
                 width={900}
                 height={900}
+                loading="eager"
+                fetchPriority="high"
                 className="h-full min-h-80 w-full object-cover"
               />
             </div>

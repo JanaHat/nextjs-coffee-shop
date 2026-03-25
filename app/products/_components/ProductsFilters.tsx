@@ -8,6 +8,7 @@ import {
 } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
+import { FiltersDisclosure } from "@/app/products/_components/FiltersDisclosure";
 import type { ProductsQuery } from "@/src/types/products-query";
 
 type ProductsFiltersProps = {
@@ -88,6 +89,13 @@ export function ProductsFilters({ query, tags }: ProductsFiltersProps) {
     });
   };
 
+  const hasAdvancedFilters = Boolean(
+    query.tag ||
+      query.sort ||
+      typeof query.minPrice === "number" ||
+      typeof query.maxPrice === "number",
+  );
+
   return (
     <form
       ref={formRef}
@@ -106,76 +114,78 @@ export function ProductsFilters({ query, tags }: ProductsFiltersProps) {
         />
       </label>
 
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        <label className="flex flex-col gap-1 text-sm">
-          Min price
-          <input
-            type="number"
-            name="minPrice"
-            min="0"
-            step="0.1"
-            defaultValue={query.minPrice ?? ""}
-            className="app-input w-full"
-          />
-        </label>
+      <FiltersDisclosure defaultOpen={hasAdvancedFilters}>
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <label className="flex flex-col gap-1 text-sm">
+            Min price
+            <input
+              type="number"
+              name="minPrice"
+              min="0"
+              step="0.1"
+              defaultValue={query.minPrice ?? ""}
+              className="app-input w-full"
+            />
+          </label>
 
-        <label className="flex flex-col gap-1 text-sm">
-          Max price
-          <input
-            type="number"
-            name="maxPrice"
-            min="0"
-            step="0.1"
-            defaultValue={query.maxPrice ?? ""}
-            className="app-input w-full"
-          />
-        </label>
+          <label className="flex flex-col gap-1 text-sm">
+            Max price
+            <input
+              type="number"
+              name="maxPrice"
+              min="0"
+              step="0.1"
+              defaultValue={query.maxPrice ?? ""}
+              className="app-input w-full"
+            />
+          </label>
 
-        <label className="flex flex-col gap-1 text-sm">
-          Tag
-          <select
-            name="tag"
-            defaultValue={query.tag ?? ""}
-            onChange={handleQuickSelectChange}
-            className="app-input w-full"
+          <label className="flex flex-col gap-1 text-sm">
+            Tag
+            <select
+              name="tag"
+              defaultValue={query.tag ?? ""}
+              onChange={handleQuickSelectChange}
+              className="app-input w-full"
+            >
+              <option value="">All tags</option>
+              {tags.map((tag) => (
+                <option key={tag} value={tag}>
+                  {tag}
+                </option>
+              ))}
+            </select>
+          </label>
+
+          <label className="flex flex-col gap-1 text-sm">
+            Sort
+            <select
+              name="sort"
+              defaultValue={query.sort ?? ""}
+              onChange={handleQuickSelectChange}
+              className="app-input w-full"
+            >
+              <option value="">Default</option>
+              <option value="price_asc">Price: Low to High</option>
+              <option value="price_desc">Price: High to Low</option>
+              <option value="rating_desc">Top Rated</option>
+            </select>
+          </label>
+        </div>
+
+        <div className="flex flex-wrap items-end gap-2">
+          <button
+            type="submit"
+            disabled={isPending}
+            className="app-button-primary h-10 rounded-lg px-4 text-sm font-medium"
           >
-            <option value="">All tags</option>
-            {tags.map((tag) => (
-              <option key={tag} value={tag}>
-                {tag}
-              </option>
-            ))}
-          </select>
-        </label>
-
-        <label className="flex flex-col gap-1 text-sm">
-          Sort
-          <select
-            name="sort"
-            defaultValue={query.sort ?? ""}
-            onChange={handleQuickSelectChange}
-            className="app-input w-full"
-          >
-            <option value="">Default</option>
-            <option value="price_asc">Price: Low to High</option>
-            <option value="price_desc">Price: High to Low</option>
-            <option value="rating_desc">Top Rated</option>
-          </select>
-        </label>
-      </div>
+            {isPending ? "Applying..." : "Apply price"}
+          </button>
+        </div>
+      </FiltersDisclosure>
 
       <input type="hidden" name="page" value="1" />
       <input type="hidden" name="pageSize" value={String(query.pageSize)} />
-
-      <div className="flex flex-wrap items-end gap-2">
-        <button
-          type="submit"
-          disabled={isPending}
-          className="app-button-primary h-10 rounded-lg px-4 text-sm font-medium"
-        >
-          {isPending ? "Applying..." : "Apply price"}
-        </button>
-      </div>
     </form>
   );
 }

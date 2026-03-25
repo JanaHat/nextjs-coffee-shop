@@ -21,6 +21,7 @@
     "react-redux": "^9.2.0"
   },
   "devDependencies": {
+    "@vitest/coverage-v8": "^2.1.9",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

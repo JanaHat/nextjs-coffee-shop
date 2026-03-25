@@ -11,14 +11,20 @@ type ProductsResultsProps = {
   searchParamsString: string;
 };
 
+const LOAD_MORE_BATCH_SIZE = 12;
+
 export async function ProductsResults({
   query,
   searchParamsString,
 }: ProductsResultsProps) {
-  const result = getProducts(query);
+  const loadedCountTarget = query.page * LOAD_MORE_BATCH_SIZE;
+  const result = getProducts({
+    ...query,
+    page: 1,
+    pageSize: loadedCountTarget,
+  });
 
-  const hasPrevious = query.page > 1;
-  const hasNext = query.page * query.pageSize < result.total;
+  const hasNext = loadedCountTarget < result.total;
   const hasActiveFilters = Boolean(
     query.q ||
     query.tag ||
@@ -51,18 +57,21 @@ export async function ProductsResults({
           </div>
         ) : (
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {result.items.map((product) => (
-              <ProductCard key={product.id} product={product} />
+            {result.items.map((product, index) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                imageLoading={index === 0 ? "eager" : "lazy"}
+              />
             ))}
           </ul>
         )}
       </section>
 
       <ProductsPagination
-        page={query.page}
-        hasPrevious={hasPrevious}
+        loadedCount={result.items.length}
+        total={result.total}
         hasNext={hasNext}
-        previousHref={buildProductsHref(urlSearchParams, { page: query.page - 1 })}
         nextHref={buildProductsHref(urlSearchParams, { page: query.page + 1 })}
       />
     </>
