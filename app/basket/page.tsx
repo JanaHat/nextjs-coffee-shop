@@ -81,7 +81,11 @@ export default function BasketPage() {
                       className="grid gap-4 py-4 sm:grid-cols-[1fr_auto] sm:items-center"
                     >
                       <div className="flex items-center gap-4">
-                        <div className="app-surface h-20 w-20 overflow-hidden rounded-lg">
+                        <Link
+                          href={`/products/${item.id}`}
+                          className="app-surface h-20 w-20 overflow-hidden rounded-lg"
+                          aria-label={`View details for ${item.name}`}
+                        >
                           <Image
                             src={`/${item.id}.webp`}
                             alt={`${item.name} by ${item.brand}`}
@@ -89,13 +93,17 @@ export default function BasketPage() {
                             height={160}
                             className="h-full w-full object-cover"
                           />
-                        </div>
+                        </Link>
 
                         <div>
                           <p className="app-muted text-xs uppercase tracking-wide">
                             {item.brand}
                           </p>
-                          <h2 className="text-lg font-semibold">{item.name}</h2>
+                          <h2 className="text-lg font-semibold">
+                            <Link href={`/products/${item.id}`} className="hover:underline">
+                              {item.name}
+                            </Link>
+                          </h2>
                           <p className="app-muted text-sm">
                             {formatPrice(item.price)} each
                           </p>
@@ -164,12 +172,21 @@ export default function BasketPage() {
               </div>
 
               <div className="mt-4">
-                <Link
-                  href="/checkout"
-                  className="inline-flex rounded-lg bg-yellow-400 px-4 py-2 text-sm font-medium text-black transition hover:bg-yellow-300"
-                >
-                  Proceed to checkout
-                </Link>
+                <div className="flex flex-wrap items-center gap-2">
+                  <Link
+                    href="/checkout"
+                    className="inline-flex rounded-lg bg-yellow-400 px-4 py-2 text-sm font-medium text-black transition hover:bg-yellow-300"
+                  >
+                    Proceed to checkout
+                  </Link>
+
+                  <Link
+                    href="/products"
+                    className="app-button-secondary inline-flex rounded-lg px-4 py-2 text-sm font-medium"
+                  >
+                    Continue shopping
+                  </Link>
+                </div>
               </div>
             </section>
           </>
