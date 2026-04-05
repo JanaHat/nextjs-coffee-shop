@@ -1,4 +1,3 @@
-import { Prisma } from "@prisma/client";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
@@ -9,6 +8,14 @@ import { getProductById } from "@/src/lib/products";
 const createFavouriteSchema = z.object({
   productId: z.string().trim().min(1),
 });
+
+const isUniqueConstraintError = (error: unknown) => {
+  if (typeof error !== "object" || error === null) {
+    return false;
+  }
+
+  return "code" in error && (error as { code?: string }).code === "P2002";
+};
 
 export async function GET() {
   const session = await auth();
@@ -78,10 +85,7 @@ export async function POST(request: Request) {
       { status: 201 },
     );
   } catch (error) {
-    if (
-      error instanceof Prisma.PrismaClientKnownRequestError
-      && error.code === "P2002"
-    ) {
+    if (isUniqueConstraintError(error)) {
       return NextResponse.json({
         ok: true,
         favourited: true,
