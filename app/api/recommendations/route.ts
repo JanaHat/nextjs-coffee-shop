@@ -1,5 +1,4 @@
-import { NextResponse } from "next/server";
-
+import { apiError, apiSuccess } from "@/src/lib/api-responses";
 import { validateRecommendationAnswers } from "@/src/lib/recommendation-validation";
 import { recommendProducts } from "@/src/lib/recommendations";
 
@@ -9,22 +8,16 @@ export async function POST(request: Request) {
   try {
     rawBody = await request.json();
   } catch {
-    return NextResponse.json({ message: "Invalid JSON payload" }, { status: 400 });
+    return apiError(400, "Invalid JSON payload");
   }
 
   const validation = validateRecommendationAnswers(rawBody);
 
   if (!validation.isValid) {
-    return NextResponse.json(
-      {
-        message: "Invalid recommendation answers",
-        errors: validation.errors,
-      },
-      { status: 400 },
-    );
+    return apiError(400, "Invalid recommendation answers", { errors: validation.errors });
   }
 
   const data = recommendProducts(validation.data);
 
-  return NextResponse.json(data);
+  return apiSuccess(data);
 }

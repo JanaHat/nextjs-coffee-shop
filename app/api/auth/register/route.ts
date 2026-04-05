@@ -1,7 +1,7 @@
 import { hash } from "bcryptjs";
-import { NextResponse } from "next/server";
 import { z } from "zod";
 
+import { apiError, apiSuccess } from "@/src/lib/api-responses";
 import { db } from "@/src/lib/db";
 
 const registerSchema = z.object({
@@ -16,13 +16,13 @@ export async function POST(request: Request) {
   try {
     body = (await request.json()) as unknown;
   } catch {
-    return NextResponse.json({ message: "Invalid JSON payload" }, { status: 400 });
+    return apiError(400, "Invalid JSON payload");
   }
 
   const parsed = registerSchema.safeParse(body);
 
   if (!parsed.success) {
-    return NextResponse.json({ message: "Invalid registration data" }, { status: 400 });
+    return apiError(400, "Invalid registration data");
   }
 
   const name = parsed.data.name.trim();
@@ -35,7 +35,7 @@ export async function POST(request: Request) {
   });
 
   if (existingUser) {
-    return NextResponse.json({ message: "Email is already registered" }, { status: 409 });
+    return apiError(409, "Email is already registered");
   }
 
   await db.user.create({
@@ -47,5 +47,5 @@ export async function POST(request: Request) {
     select: { id: true },
   });
 
-  return NextResponse.json({ ok: true }, { status: 201 });
+  return apiSuccess({}, 201);
 }

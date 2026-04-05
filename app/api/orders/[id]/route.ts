@@ -1,5 +1,4 @@
-import { NextResponse } from "next/server";
-
+import { apiError, apiSuccess } from "@/src/lib/api-responses";
 import { auth } from "@/src/lib/auth";
 import { db } from "@/src/lib/db";
 
@@ -11,7 +10,7 @@ export async function GET(_: Request, context: RouteContext) {
   const session = await auth();
 
   if (!session?.user?.id) {
-    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    return apiError(401, "Unauthorized");
   }
 
   const { id } = await context.params;
@@ -28,8 +27,8 @@ export async function GET(_: Request, context: RouteContext) {
   });
 
   if (!order) {
-    return NextResponse.json({ message: "Order not found" }, { status: 404 });
+    return apiError(404, "Order not found");
   }
 
-  return NextResponse.json(order);
+  return apiSuccess({ order });
 }
