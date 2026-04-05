@@ -14,7 +14,7 @@ describe("POST /api/recommendations", () => {
     const body = await response.json();
 
     expect(response.status).toBe(400);
-    expect(body).toEqual({ message: "Invalid JSON payload" });
+    expect(body).toEqual({ ok: false, message: "Invalid JSON payload" });
   });
 
   it("returns 400 for invalid recommendation answers", async () => {
@@ -32,6 +32,7 @@ describe("POST /api/recommendations", () => {
 
     expect(response.status).toBe(400);
     expect(body).toMatchObject({
+      ok: false,
       message: "Invalid recommendation answers",
     });
     expect(Array.isArray(body.errors)).toBe(true);
@@ -57,6 +58,7 @@ describe("POST /api/recommendations", () => {
     const body = await response.json();
 
     expect(response.status).toBe(200);
+    expect(body.ok).toBe(true);
     expect(Array.isArray(body.items)).toBe(true);
     expect(body.items).toHaveLength(5);
     expect(body.items[0]).toHaveProperty("product");
