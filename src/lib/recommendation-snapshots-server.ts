@@ -82,7 +82,7 @@ export const listUserRecommendationSnapshots = async (userId: string, limit = 20
     `;
 
     return snapshots
-      .map((snapshot) => {
+      .map((snapshot: { clientSnapshotId: string; createdAt: Date; items: Prisma.JsonValue }) => {
         const rawItems = snapshot.items;
 
         if (!Array.isArray(rawItems)) {
@@ -95,7 +95,7 @@ export const listUserRecommendationSnapshots = async (userId: string, limit = 20
           items: rawItems,
         } as SavedRecommendationSnapshot;
       })
-      .filter((snapshot): snapshot is SavedRecommendationSnapshot => Boolean(snapshot));
+      .filter((snapshot: SavedRecommendationSnapshot | null): snapshot is SavedRecommendationSnapshot => Boolean(snapshot));
   } catch (error) {
     if (isPrismaCode(error, "P2021")) {
       return [];
@@ -124,6 +124,9 @@ export const createUserRecommendationSnapshot = async (
   }
 
   try {
+    const snapshotRowId = `${Date.now()}-${Math.floor(Math.random() * 1000000)}`;
+    const serializedItems = JSON.stringify(snapshot.items);
+
     const insertedRows = await db.$executeRaw`
       INSERT INTO "RecommendationSnapshot" (
         "id",
@@ -133,11 +136,11 @@ export const createUserRecommendationSnapshot = async (
         "items"
       )
       VALUES (
-        ${crypto.randomUUID?.() ?? `${Date.now()}-${snapshot.id}`},
+        ${snapshotRowId},
         ${userId},
         ${snapshot.id},
         ${createdAt},
-        ${snapshot.items as Prisma.JsonValue}
+        CAST(${serializedItems} AS JSONB)
       )
       ON CONFLICT ("userId", "clientSnapshotId") DO NOTHING
     `;
