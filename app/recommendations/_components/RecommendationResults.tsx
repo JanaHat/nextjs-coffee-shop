@@ -4,12 +4,15 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { saveRecommendationSnapshot } from "@/src/lib/recommendation-snapshots";
+import {
+  saveRecommendationSnapshot,
+  type SavedRecommendationSnapshot,
+} from "@/src/lib/recommendation-snapshots";
 import type { RecommendationItem } from "@/src/types/recommendation";
 
 type RecommendationResultsProps = {
   items: RecommendationItem[];
-  onSaved?: () => void;
+  onSaved?: (snapshot: SavedRecommendationSnapshot) => void;
 };
 
 const formatPrice = (value: number) => {
@@ -20,7 +23,7 @@ const formatPrice = (value: number) => {
 };
 
 const saveRecommendations = (items: RecommendationItem[]) => {
-  saveRecommendationSnapshot(items);
+  return saveRecommendationSnapshot(items);
 };
 
 export function RecommendationResults({ items, onSaved }: RecommendationResultsProps) {
@@ -28,9 +31,15 @@ export function RecommendationResults({ items, onSaved }: RecommendationResultsP
 
   const handleSave = () => {
     try {
-      saveRecommendations(items);
+      const snapshot = saveRecommendations(items);
+
+      if (!snapshot) {
+        setSaveState("error");
+        return;
+      }
+
       setSaveState("saved");
-      onSaved?.();
+      onSaved?.(snapshot);
     } catch {
       setSaveState("error");
     }

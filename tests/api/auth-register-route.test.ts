@@ -40,7 +40,7 @@ describe("POST /api/auth/register", () => {
     const body = await response.json();
 
     expect(response.status).toBe(400);
-    expect(body).toEqual({ message: "Invalid JSON payload" });
+    expect(body).toEqual({ ok: false, message: "Invalid JSON payload" });
   });
 
   it("returns 400 for invalid registration data", async () => {
@@ -54,7 +54,7 @@ describe("POST /api/auth/register", () => {
     const body = await response.json();
 
     expect(response.status).toBe(400);
-    expect(body).toEqual({ message: "Invalid registration data" });
+    expect(body).toEqual({ ok: false, message: "Invalid registration data" });
   });
 
   it("returns 409 when email already exists", async () => {
@@ -74,7 +74,7 @@ describe("POST /api/auth/register", () => {
     const body = await response.json();
 
     expect(response.status).toBe(409);
-    expect(body).toEqual({ message: "Email is already registered" });
+    expect(body).toEqual({ ok: false, message: "Email is already registered" });
     expect(mocks.create).not.toHaveBeenCalled();
   });
 

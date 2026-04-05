@@ -1,5 +1,4 @@
-import { NextResponse } from "next/server";
-
+import { apiError, apiSuccess } from "@/src/lib/api-responses";
 import { auth } from "@/src/lib/auth";
 import { db } from "@/src/lib/db";
 
@@ -7,7 +6,7 @@ export async function GET() {
   const session = await auth();
 
   if (!session?.user?.id) {
-    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    return apiError(401, "Unauthorized");
   }
 
   const orders = await db.order.findMany({
@@ -31,7 +30,5 @@ export async function GET() {
     },
   });
 
-  return NextResponse.json({
-    items: orders,
-  });
+  return apiSuccess({ items: orders });
 }

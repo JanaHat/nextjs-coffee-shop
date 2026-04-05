@@ -2,12 +2,15 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 import { type FormEvent, useEffect, useRef, useState } from "react";
 
 import { QuestionStep } from "@/app/recommendations/_components/QuestionStep";
 import { RecommendationResults } from "@/app/recommendations/_components/RecommendationResults";
 import {
   getLatestSavedRecommendationSnapshot,
+  saveRecommendationSnapshotToAccount,
+  syncSavedRecommendationSnapshotsWithAccount,
   type SavedRecommendationSnapshot,
 } from "@/src/lib/recommendation-snapshots";
 import {
@@ -46,16 +49,38 @@ const formatPrice = (value: number) => {
 };
 
 export function RecommendationsPageClient() {
+  const { status } = useSession();
   const formRef = useRef<HTMLFormElement>(null);
   const [answers, setAnswers] = useState<RecommendationAnswers>(DEFAULT_ANSWERS);
   const [results, setResults] = useState<RecommendationResponse | null>(null);
   const [savedSnapshot, setSavedSnapshot] = useState<SavedRecommendationSnapshot | null>(null);
+  const [isQuizVisible, setIsQuizVisible] = useState(true);
   const [isPending, setIsPending] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
-    setSavedSnapshot(getLatestSavedRecommendationSnapshot());
-  }, []);
+    if (status === "loading") {
+      return;
+    }
+
+    const loadSavedSnapshot = async () => {
+      if (status === "authenticated") {
+        const snapshots = await syncSavedRecommendationSnapshotsWithAccount();
+        const latestSnapshot = snapshots[0] ?? null;
+
+        setSavedSnapshot(latestSnapshot);
+        setIsQuizVisible(!latestSnapshot);
+        return;
+      }
+
+      const latestSnapshot = getLatestSavedRecommendationSnapshot();
+
+      setSavedSnapshot(latestSnapshot);
+      setIsQuizVisible(!latestSnapshot);
+    };
+
+    void loadSavedSnapshot();
+  }, [status]);
 
   const toggleFlavour = (kind: "preferredFlavours" | "avoidFlavours", flavour: string) => {
     setAnswers((current) => {
@@ -108,14 +133,18 @@ export function RecommendationsPageClient() {
     setAnswers(DEFAULT_ANSWERS);
     setResults(null);
     setErrorMessage(null);
-    formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    setIsQuizVisible(true);
+
+    requestAnimationFrame(() => {
+      formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
   };
 
   return (
     <div className="app-page px-4 py-10 sm:px-8">
       <main className="mx-auto flex w-full max-w-5xl flex-col gap-6">
         <header className="space-y-2">
-          <h1 className="text-3xl font-semibold tracking-tight">AI Coffee Questionnaire</h1>
+          <h1 className="text-3xl font-semibold tracking-tight">Coffee Matcher</h1>
           <p className="app-muted text-sm">
             Tell us what you enjoy and we will suggest five coffees that match your taste.
           </p>
@@ -123,19 +152,9 @@ export function RecommendationsPageClient() {
 
         {savedSnapshot ? (
           <section className="app-surface rounded-2xl p-6">
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <div>
-                <h2 className="text-lg font-semibold">Your last saved recommendations</h2>
-                <p className="app-muted text-sm">Saved {new Date(savedSnapshot.createdAt).toLocaleString()}</p>
-              </div>
-
-              <button
-                type="button"
-                onClick={handleTakeQuizAgain}
-                className="app-button-secondary inline-flex rounded-lg px-3 py-2 text-sm font-medium"
-              >
-                Take quiz again
-              </button>
+            <div>
+              <h2 className="text-lg font-semibold">Your last saved recommendations</h2>
+              <p className="app-muted text-sm">Saved {new Date(savedSnapshot.createdAt).toLocaleString()}</p>
             </div>
 
             <ul className="mt-4 space-y-2">
@@ -171,10 +190,23 @@ export function RecommendationsPageClient() {
                 </li>
               ))}
             </ul>
+
+            {!isQuizVisible ? (
+              <div className="mt-4">
+                <button
+                  type="button"
+                  onClick={handleTakeQuizAgain}
+                  className="app-button-secondary inline-flex rounded-lg px-3 py-2 text-sm font-medium"
+                >
+                  Match again
+                </button>
+              </div>
+            ) : null}
           </section>
         ) : null}
 
-        <form ref={formRef} className="space-y-4" onSubmit={handleSubmit}>
+        {isQuizVisible ? (
+          <form ref={formRef} className="space-y-4" onSubmit={handleSubmit}>
           <QuestionStep
             title="1) Preferred flavour notes"
             description="Choose up to four flavours you want to taste in your cup."
@@ -382,13 +414,20 @@ export function RecommendationsPageClient() {
           </div>
 
           {errorMessage ? <p className="text-sm text-red-600">{errorMessage}</p> : null}
-        </form>
+          </form>
+        ) : null}
 
-        {results ? (
+        {isQuizVisible && results ? (
           <RecommendationResults
             items={results.items}
-            onSaved={() => {
-              setSavedSnapshot(getLatestSavedRecommendationSnapshot());
+            onSaved={(snapshot) => {
+              setSavedSnapshot(snapshot);
+
+              if (status === "authenticated") {
+                void saveRecommendationSnapshotToAccount(snapshot).then((snapshots) => {
+                  setSavedSnapshot(snapshots[0] ?? snapshot);
+                });
+              }
             }}
           />
         ) : null}

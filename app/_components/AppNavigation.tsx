@@ -103,7 +103,7 @@ export function AppNavigation() {
               onClick={() => setIsMobileMenuOpen(false)}
               className="app-button-secondary inline-flex h-10 items-center rounded-lg px-3 text-sm font-medium"
             >
-              AI quiz
+              Coffee Matcher
             </Link>
 
             {!isSignedIn ? (
@@ -214,7 +214,7 @@ export function AppNavigation() {
                 : "hover:underline hover:underline-offset-4",
             ].join(" ")}
           >
-            AI quiz
+            Coffee Matcher
           </Link>
 
           <Link
