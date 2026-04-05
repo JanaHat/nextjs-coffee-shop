@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { SignOutButton } from "@/app/account/_components/SignOutButton";
 import { auth } from "@/src/lib/auth";
 import { db } from "@/src/lib/db";
+import { getProductById } from "@/src/lib/products";
 
 export const metadata: Metadata = {
   title: "Account",
@@ -42,6 +43,23 @@ export default async function AccountPage() {
     take: 20,
   });
 
+  const favourites = await db.favourite.findMany({
+    where: {
+      userId: session.user.id,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+    take: 24,
+  });
+
+  const favouriteProducts = favourites
+    .map((favourite) => ({
+      favourite,
+      product: getProductById(favourite.productId),
+    }))
+    .filter((entry) => Boolean(entry.product));
+
   return (
     <div className="app-page px-4 py-10 sm:px-8">
       <main className="mx-auto w-full max-w-3xl space-y-6">
@@ -59,6 +77,38 @@ export default async function AccountPage() {
             <SignOutButton />
           </div>
         </header>
+
+        <section className="app-surface rounded-2xl p-6">
+          <h2 className="text-lg font-semibold">Favourites</h2>
+          {favouriteProducts.length === 0 ? (
+            <p className="app-muted mt-1 text-sm">
+              No favourites yet. Tap the heart icon on any product to save it.
+            </p>
+          ) : (
+            <ul className="mt-4 space-y-2">
+              {favouriteProducts.map(({ favourite, product }) => {
+                if (!product) {
+                  return null;
+                }
+
+                return (
+                  <li key={favourite.id} className="flex items-center justify-between gap-3">
+                    <div>
+                      <Link
+                        href={`/products/${product.id}`}
+                        className="text-sm font-medium hover:underline"
+                      >
+                        {product.name}
+                      </Link>
+                      <p className="app-muted text-xs">{product.brand}</p>
+                    </div>
+                    <span className="text-sm font-medium">{formatPrice(product.price)}</span>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+        </section>
 
         <section className="app-surface rounded-2xl p-6">
           <h2 className="text-lg font-semibold">Past orders</h2>
