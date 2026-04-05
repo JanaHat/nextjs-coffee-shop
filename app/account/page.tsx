@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
+import { RemoveFavouriteButton } from "@/app/account/_components/RemoveFavouriteButton";
 import { SignOutButton } from "@/app/account/_components/SignOutButton";
 import { auth } from "@/src/lib/auth";
 import { db } from "@/src/lib/db";
@@ -82,7 +83,7 @@ export default async function AccountPage() {
               {favouriteProducts.map((product) => {
                 return (
                   <li key={product.id} className="flex items-center justify-between gap-3">
-                    <div>
+                    <div className="min-w-0">
                       <Link
                         href={`/products/${product.id}`}
                         className="text-sm font-medium hover:underline"
@@ -91,7 +92,11 @@ export default async function AccountPage() {
                       </Link>
                       <p className="app-muted text-xs">{product.brand}</p>
                     </div>
-                    <span className="text-sm font-medium">{formatPrice(product.price)}</span>
+
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm font-medium">{formatPrice(product.price)}</span>
+                      <RemoveFavouriteButton productId={product.id} />
+                    </div>
                   </li>
                 );
               })}
