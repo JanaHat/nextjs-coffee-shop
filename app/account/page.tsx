@@ -2,9 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
+import { RemoveFavouriteButton } from "@/app/account/_components/RemoveFavouriteButton";
 import { SignOutButton } from "@/app/account/_components/SignOutButton";
 import { auth } from "@/src/lib/auth";
 import { db } from "@/src/lib/db";
+import { listUserFavouriteProductIds } from "@/src/lib/favourites";
+import { getProductById } from "@/src/lib/products";
+import type { Product } from "@/src/types/product";
 
 export const metadata: Metadata = {
   title: "Account",
@@ -42,6 +46,14 @@ export default async function AccountPage() {
     take: 20,
   });
 
+  const favouriteProductIds = await listUserFavouriteProductIds(session.user.id, {
+    limit: 24,
+  });
+
+  const favouriteProducts = favouriteProductIds
+    .map((productId) => getProductById(productId))
+    .filter((product): product is Product => Boolean(product));
+
   return (
     <div className="app-page px-4 py-10 sm:px-8">
       <main className="mx-auto w-full max-w-3xl space-y-6">
@@ -59,6 +71,38 @@ export default async function AccountPage() {
             <SignOutButton />
           </div>
         </header>
+
+        <section className="app-surface rounded-2xl p-6">
+          <h2 className="text-lg font-semibold">Favourites</h2>
+          {favouriteProducts.length === 0 ? (
+            <p className="app-muted mt-1 text-sm">
+              No favourites yet. Tap the heart icon on any product to save it.
+            </p>
+          ) : (
+            <ul className="mt-4 space-y-2">
+              {favouriteProducts.map((product) => {
+                return (
+                  <li key={product.id} className="flex items-center justify-between gap-3">
+                    <div className="min-w-0">
+                      <Link
+                        href={`/products/${product.id}`}
+                        className="text-sm font-medium hover:underline"
+                      >
+                        {product.name}
+                      </Link>
+                      <p className="app-muted text-xs">{product.brand}</p>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm font-medium">{formatPrice(product.price)}</span>
+                      <RemoveFavouriteButton productId={product.id} />
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+        </section>
 
         <section className="app-surface rounded-2xl p-6">
           <h2 className="text-lg font-semibold">Past orders</h2>

@@ -4,6 +4,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { AddToBasketButton } from "@/app/products/_components/AddToBasketButton";
+import { FavouriteButton } from "@/app/products/_components/FavouriteButton";
+import { auth } from "@/src/lib/auth";
+import { isUserProductFavourited } from "@/src/lib/favourites";
 import { getProductById } from "@/src/lib/products";
 
 export const revalidate = 300;
@@ -82,6 +85,7 @@ export async function generateMetadata({
 }
 
 export default async function ProductDetailPage({ params }: ProductDetailPageProps) {
+  const session = await auth();
   const { id } = await params;
   const product = getProductById(id);
 
@@ -90,6 +94,9 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
   }
 
   const [descriptionPrimary, descriptionSecondary] = getDetailedParagraphs(product);
+  const isFavourited = session?.user?.id
+    ? await isUserProductFavourited(session.user.id, product.id)
+    : false;
 
   return (
     <div className="app-page px-4 py-10 sm:px-8">
@@ -125,6 +132,14 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
               </p>
 
               <div className="pt-1">
+                <div className="mb-3">
+                  <FavouriteButton
+                    productId={product.id}
+                    productName={product.name}
+                    initialFavourited={isFavourited}
+                  />
+                </div>
+
                 <AddToBasketButton
                   product={{
                     id: product.id,

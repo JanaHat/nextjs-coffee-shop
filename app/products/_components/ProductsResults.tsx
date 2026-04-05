@@ -3,6 +3,8 @@ import Link from "next/link";
 import { ProductCard } from "@/app/products/_components/ProductCard";
 import { ProductsPagination } from "@/app/products/_components/ProductsPagination";
 import { buildProductsHref } from "@/app/products/_lib/search-params";
+import { auth } from "@/src/lib/auth";
+import { listUserFavouriteProductIds } from "@/src/lib/favourites";
 import { getProducts } from "@/src/lib/products";
 import type { ProductsQuery } from "@/src/types/products-query";
 
@@ -17,6 +19,7 @@ export async function ProductsResults({
   query,
   searchParamsString,
 }: ProductsResultsProps) {
+  const session = await auth();
   const loadedCountTarget = query.page * LOAD_MORE_BATCH_SIZE;
   const result = getProducts({
     ...query,
@@ -34,6 +37,15 @@ export async function ProductsResults({
   );
 
   const urlSearchParams = new URLSearchParams(searchParamsString);
+  const productIds = result.items.map((product) => product.id);
+
+  const favouriteIds = session?.user?.id
+    ? new Set(
+      await listUserFavouriteProductIds(session.user.id, {
+        productIds,
+      }),
+    )
+    : new Set<string>();
 
   return (
     <>
@@ -62,6 +74,7 @@ export async function ProductsResults({
                 key={product.id}
                 product={product}
                 imageLoading={index === 0 ? "eager" : "lazy"}
+                isFavourited={favouriteIds.has(product.id)}
               />
             ))}
           </ul>
