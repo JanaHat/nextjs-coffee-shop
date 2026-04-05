@@ -11,7 +11,17 @@ const DEFAULT_PAGE = 1;
 const DEFAULT_PAGE_SIZE = 12;
 const MAX_PAGE_SIZE = 50;
 
-const products: Product[] = productsData as Product[];
+type RawProduct = Product & {
+  detailedDescreption?: string;
+};
+
+const products: Product[] = (productsData as RawProduct[]).map((product) => ({
+  ...product,
+  detailedDescription:
+    product.detailedDescription
+    ?? product.detailedDescreption
+    ?? product.description,
+}));
 
 const normalize = (value: string) => value.trim().toLowerCase();
 

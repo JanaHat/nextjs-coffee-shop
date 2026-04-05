@@ -35,7 +35,7 @@ const getDetailedParagraphs = (product: ReturnType<typeof getProductById>) => {
     return ["", ""];
   }
 
-  const firstParagraph = product.detailedDescreption || product.description;
+  const firstParagraph = product.detailedDescription || product.description;
   const tagsPreview = product.tags.slice(0, 3).join(", ");
   const secondParagraph = `${product.name} from ${product.brand} is rated ${product.rating.toFixed(1)} out of 5 and is a great choice if you enjoy ${tagsPreview}. It works especially well when brewed with care and pairs nicely with both black coffee drinkers and those who prefer adding milk, depending on your taste.`;
 
@@ -60,7 +60,7 @@ export async function generateMetadata({
   }
 
   const title = product.name;
-  const description = product.detailedDescreption || product.description;
+  const description = product.detailedDescription || product.description;
   const canonicalPath = `/products/${product.id}`;
 
   return {
