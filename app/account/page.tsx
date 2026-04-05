@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
@@ -84,14 +85,30 @@ export default async function AccountPage() {
               {favouriteProducts.map((product) => {
                 return (
                   <li key={product.id} className="flex items-center justify-between gap-3">
-                    <div className="min-w-0">
+                    <div className="flex min-w-0 items-center gap-3">
                       <Link
                         href={`/products/${product.id}`}
-                        className="text-sm font-medium hover:underline"
+                        className="app-surface h-14 w-14 shrink-0 overflow-hidden rounded-lg"
+                        aria-label={`View details for ${product.name}`}
                       >
-                        {product.name}
+                        <Image
+                          src={product.imageUrl ?? `/${product.id}.webp`}
+                          alt={`${product.name} by ${product.brand}`}
+                          width={112}
+                          height={112}
+                          className="h-full w-full object-cover"
+                        />
                       </Link>
-                      <p className="app-muted text-xs">{product.brand}</p>
+
+                      <div className="min-w-0">
+                        <Link
+                          href={`/products/${product.id}`}
+                          className="text-sm font-medium hover:underline"
+                        >
+                          {product.name}
+                        </Link>
+                        <p className="app-muted text-xs">{product.brand}</p>
+                      </div>
                     </div>
 
                     <div className="flex items-center gap-2">
