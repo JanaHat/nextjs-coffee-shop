@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { AddToBasketButton } from "@/app/products/_components/AddToBasketButton";
+import { FavouriteButton } from "@/app/products/_components/FavouriteButton";
 import type { Product } from "@/src/types/product";
 
 const formatPrice = (value: number) => {
@@ -14,6 +15,7 @@ const formatPrice = (value: number) => {
 type ProductCardProps = {
   product: Product;
   imageLoading?: "lazy" | "eager";
+  isFavourited?: boolean;
 };
 
 const getStarRating = (rating: number) => {
@@ -24,7 +26,11 @@ const getStarRating = (rating: number) => {
   );
 };
 
-export function ProductCard({ product, imageLoading = "lazy" }: ProductCardProps) {
+export function ProductCard({
+  product,
+  imageLoading = "lazy",
+  isFavourited = false,
+}: ProductCardProps) {
   return (
     <li className="app-surface rounded-2xl p-4 shadow-sm transition hover:shadow-md">
       <div className="flex mb-4 justify-between overflow-hidden">
@@ -41,6 +47,15 @@ export function ProductCard({ product, imageLoading = "lazy" }: ProductCardProps
         </div>
 
         <div className="mb-4 flex w-[50%] flex-col items-center justify-center text-sm">
+          <div className="mb-2 self-end">
+            <FavouriteButton
+              productId={product.id}
+              productName={product.name}
+              initialFavourited={isFavourited}
+              compact
+            />
+          </div>
+
           <span className="font-semibold">{formatPrice(product.price)}</span>
           <span
             className="text-base tracking-wide text-green-600"
