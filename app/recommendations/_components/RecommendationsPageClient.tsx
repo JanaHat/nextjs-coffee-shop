@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { type FormEvent, useEffect, useRef, useState } from "react";
 
@@ -140,12 +141,28 @@ export function RecommendationsPageClient() {
             <ul className="mt-4 space-y-2">
               {savedSnapshot.items.slice(0, 5).map((item, index) => (
                 <li key={`saved-${item.product.id}`} className="flex flex-wrap items-center justify-between gap-3">
-                  <div className="min-w-0">
-                    <p className="app-muted text-xs uppercase tracking-wide">#{index + 1} saved match</p>
-                    <Link href={`/products/${item.product.id}`} className="text-sm font-medium hover:underline">
-                      {item.product.name}
+                  <div className="flex min-w-0 items-center gap-3">
+                    <Link
+                      href={`/products/${item.product.id}`}
+                      className="app-surface h-14 w-14 shrink-0 overflow-hidden rounded-lg"
+                      aria-label={`View details for ${item.product.name}`}
+                    >
+                      <Image
+                        src={item.product.imageUrl ?? `/${item.product.id}.webp`}
+                        alt={`${item.product.name} by ${item.product.brand}`}
+                        width={112}
+                        height={112}
+                        className="h-full w-full object-cover"
+                      />
                     </Link>
-                    <p className="app-muted text-xs">{item.product.brand}</p>
+
+                    <div className="min-w-0">
+                      <p className="app-muted text-xs uppercase tracking-wide">#{index + 1} saved match</p>
+                      <Link href={`/products/${item.product.id}`} className="text-sm font-medium hover:underline">
+                        {item.product.name}
+                      </Link>
+                      <p className="app-muted text-xs">{item.product.brand}</p>
+                    </div>
                   </div>
 
                   <span className="app-muted text-xs">

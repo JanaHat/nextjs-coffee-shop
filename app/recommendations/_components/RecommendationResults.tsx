@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 
 import { saveRecommendationSnapshot } from "@/src/lib/recommendation-snapshots";
@@ -67,16 +68,32 @@ export function RecommendationResults({ items, onSaved }: RecommendationResultsP
       <ul className="mt-4 space-y-4">
         {items.map((item, index) => (
           <li key={item.product.id} className="rounded-xl border border-(--app-border) p-4">
-            <div className="flex flex-wrap items-start justify-between gap-3">
-              <div>
-                <p className="app-muted text-xs uppercase tracking-wide">#{index + 1} match</p>
-                <p className="text-base font-semibold">{item.product.name}</p>
-                <p className="app-muted text-sm">{item.product.brand}</p>
-              </div>
+            <div className="flex items-start gap-4">
+              <Link
+                href={`/products/${item.product.id}`}
+                className="app-surface h-20 w-20 shrink-0 overflow-hidden rounded-lg"
+                aria-label={`View details for ${item.product.name}`}
+              >
+                <Image
+                  src={item.product.imageUrl ?? `/${item.product.id}.webp`}
+                  alt={`${item.product.name} by ${item.product.brand}`}
+                  width={160}
+                  height={160}
+                  className="h-full w-full object-cover"
+                />
+              </Link>
 
-              <div className="text-right">
-                <p className="text-sm font-medium">{formatPrice(item.product.price)}</p>
-                <p className="app-muted text-xs">Score {item.score.toFixed(1)}</p>
+              <div className="flex flex-1 flex-wrap items-start justify-between gap-3">
+                <p className="app-muted text-xs uppercase tracking-wide">#{index + 1} match</p>
+                <div className="min-w-0">
+                  <p className="text-base font-semibold">{item.product.name}</p>
+                  <p className="app-muted text-sm">{item.product.brand}</p>
+                </div>
+
+                <div className="text-right">
+                  <p className="text-sm font-medium">{formatPrice(item.product.price)}</p>
+                  <p className="app-muted text-xs">Score {item.score.toFixed(1)}</p>
+                </div>
               </div>
             </div>
 
