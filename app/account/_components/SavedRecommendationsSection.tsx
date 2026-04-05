@@ -45,7 +45,7 @@ export function SavedRecommendationsSection() {
       <h2 className="text-lg font-semibold">Saved recommendations</h2>
       {snapshots.length === 0 ? (
         <p className="app-muted mt-1 text-sm">
-          Nothing saved yet. Take the <Link href="/recommendations" className="underline">AI quiz</Link> and save your top matches.
+          Nothing saved yet. Try <Link href="/recommendations" className="underline">Coffee Matcher</Link> and save your top matches.
         </p>
       ) : (
         <ul className="mt-4 space-y-4">

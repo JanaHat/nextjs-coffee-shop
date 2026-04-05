@@ -133,7 +133,7 @@ export function RecommendationsPageClient() {
     <div className="app-page px-4 py-10 sm:px-8">
       <main className="mx-auto flex w-full max-w-5xl flex-col gap-6">
         <header className="space-y-2">
-          <h1 className="text-3xl font-semibold tracking-tight">AI Coffee Questionnaire</h1>
+          <h1 className="text-3xl font-semibold tracking-tight">Coffee Matcher</h1>
           <p className="app-muted text-sm">
             Tell us what you enjoy and we will suggest five coffees that match your taste.
           </p>
@@ -152,7 +152,7 @@ export function RecommendationsPageClient() {
                 onClick={handleTakeQuizAgain}
                 className="app-button-secondary inline-flex rounded-lg px-3 py-2 text-sm font-medium"
               >
-                Take quiz again
+                Match again
               </button>
             </div>
 
