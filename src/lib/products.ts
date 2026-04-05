@@ -134,3 +134,7 @@ export const getProducts = (query: ProductsQuery) => {
 export const getProductById = (id: string) => {
   return products.find((product) => product.id === id);
 };
+
+export const getAllProducts = () => {
+  return [...products];
+};

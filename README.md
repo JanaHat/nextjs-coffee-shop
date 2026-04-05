@@ -21,6 +21,9 @@ This project is intentionally built to showcase practical full-stack skills:
 	- search, tag filter, min/max price filter, sort
 	- load-more pagination
 	- product detail pages
+- AI questionnaire recommendations:
+	- preference quiz for flavours, brew method, roast, acidity, budget, and intensity
+	- top 5 coffee matches with reasons
 - Basket management:
 	- add/remove/update quantity
 	- persisted basket state (local storage)

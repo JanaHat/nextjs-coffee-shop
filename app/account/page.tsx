@@ -3,6 +3,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { RemoveFavouriteButton } from "@/app/account/_components/RemoveFavouriteButton";
+import { SavedRecommendationsSection } from "@/app/account/_components/SavedRecommendationsSection";
 import { SignOutButton } from "@/app/account/_components/SignOutButton";
 import { auth } from "@/src/lib/auth";
 import { db } from "@/src/lib/db";
@@ -103,6 +104,8 @@ export default async function AccountPage() {
             </ul>
           )}
         </section>
+
+        <SavedRecommendationsSection />
 
         <section className="app-surface rounded-2xl p-6">
           <h2 className="text-lg font-semibold">Past orders</h2>

@@ -19,6 +19,7 @@ export function AppNavigation() {
   const isHydrated = useAppSelector(selectBasketHydrated);
 
   const isProducts = pathname.startsWith("/products");
+  const isRecommendations = pathname.startsWith("/recommendations");
   const isBasket = pathname.startsWith("/basket");
   const isAccount = pathname.startsWith("/account") || pathname.startsWith("/profile");
   const isSignIn = pathname.startsWith("/auth/sign-in");
@@ -94,6 +95,15 @@ export function AppNavigation() {
               className="app-button-secondary inline-flex h-10 items-center rounded-lg px-3 text-sm font-medium"
             >
               Products
+            </Link>
+
+            <Link
+              href="/recommendations"
+              aria-current={isRecommendations ? "page" : undefined}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="app-button-secondary inline-flex h-10 items-center rounded-lg px-3 text-sm font-medium"
+            >
+              AI quiz
             </Link>
 
             {!isSignedIn ? (
@@ -191,6 +201,20 @@ export function AppNavigation() {
             ].join(" ")}
           >
             Products
+          </Link>
+
+          <Link
+            href="/recommendations"
+            aria-current={isRecommendations ? "page" : undefined}
+            className={[
+              "inline-flex h-9 items-center rounded-lg px-3 text-sm font-medium transition",
+              "bg-transparent",
+              isRecommendations
+                ? "underline underline-offset-4"
+                : "hover:underline hover:underline-offset-4",
+            ].join(" ")}
+          >
+            AI quiz
           </Link>
 
           <Link
