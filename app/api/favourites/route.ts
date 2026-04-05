@@ -2,20 +2,12 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 
 import { auth } from "@/src/lib/auth";
-import { db } from "@/src/lib/db";
+import { addUserFavourite, listUserFavouriteProductIds } from "@/src/lib/favourites";
 import { getProductById } from "@/src/lib/products";
 
 const createFavouriteSchema = z.object({
   productId: z.string().trim().min(1),
 });
-
-const isUniqueConstraintError = (error: unknown) => {
-  if (typeof error !== "object" || error === null) {
-    return false;
-  }
-
-  return "code" in error && (error as { code?: string }).code === "P2002";
-};
 
 export async function GET() {
   const session = await auth();
@@ -24,20 +16,10 @@ export async function GET() {
     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
   }
 
-  const favourites = await db.favourite.findMany({
-    where: {
-      userId: session.user.id,
-    },
-    select: {
-      productId: true,
-    },
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
+  const items = await listUserFavouriteProductIds(session.user.id);
 
   return NextResponse.json({
-    items: favourites.map((favourite) => favourite.productId),
+    items,
   });
 }
 
@@ -68,31 +50,21 @@ export async function POST(request: Request) {
     return NextResponse.json({ message: "Product not found" }, { status: 404 });
   }
 
-  try {
-    await db.favourite.create({
-      data: {
-        userId: session.user.id,
-        productId,
-      },
-    });
+  const result = await addUserFavourite(session.user.id, productId);
 
+  if (result === "unavailable") {
     return NextResponse.json(
-      {
-        ok: true,
-        favourited: true,
-        productId,
-      },
-      { status: 201 },
+      { message: "Favourites are temporarily unavailable. Run database migrations." },
+      { status: 503 },
     );
-  } catch (error) {
-    if (isUniqueConstraintError(error)) {
-      return NextResponse.json({
-        ok: true,
-        favourited: true,
-        productId,
-      });
-    }
-
-    throw error;
   }
+
+  return NextResponse.json(
+    {
+      ok: true,
+      favourited: true,
+      productId,
+    },
+    { status: result === "created" ? 201 : 200 },
+  );
 }

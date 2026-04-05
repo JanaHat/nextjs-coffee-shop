@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 
 import { ActiveFilters } from "@/app/products/_components/ActiveFilters";
 import { ProductsFilters } from "@/app/products/_components/ProductsFilters";
 import { ProductsResults } from "@/app/products/_components/ProductsResults";
-import { ProductsResultsLoading } from "@/app/products/_components/ProductsResultsLoading";
 import { getTagOptions, toSearchParams } from "@/app/products/_lib/search-params";
 import { parseProductsQuery } from "@/src/lib/products";
 
@@ -43,10 +41,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
 
         <ProductsFilters query={query} tags={tags} />
         <ActiveFilters query={query} searchParamsString={searchParamsString} />
-
-        <Suspense key={searchParamsString} fallback={<ProductsResultsLoading />}>
-          <ProductsResults query={query} searchParamsString={searchParamsString} />
-        </Suspense>
+        <ProductsResults query={query} searchParamsString={searchParamsString} />
       </main>
     </div>
   );

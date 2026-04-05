@@ -5,7 +5,9 @@ import { redirect } from "next/navigation";
 import { SignOutButton } from "@/app/account/_components/SignOutButton";
 import { auth } from "@/src/lib/auth";
 import { db } from "@/src/lib/db";
+import { listUserFavouriteProductIds } from "@/src/lib/favourites";
 import { getProductById } from "@/src/lib/products";
+import type { Product } from "@/src/types/product";
 
 export const metadata: Metadata = {
   title: "Account",
@@ -43,22 +45,13 @@ export default async function AccountPage() {
     take: 20,
   });
 
-  const favourites = await db.favourite.findMany({
-    where: {
-      userId: session.user.id,
-    },
-    orderBy: {
-      createdAt: "desc",
-    },
-    take: 24,
+  const favouriteProductIds = await listUserFavouriteProductIds(session.user.id, {
+    limit: 24,
   });
 
-  const favouriteProducts = favourites
-    .map((favourite) => ({
-      favourite,
-      product: getProductById(favourite.productId),
-    }))
-    .filter((entry) => Boolean(entry.product));
+  const favouriteProducts = favouriteProductIds
+    .map((productId) => getProductById(productId))
+    .filter((product): product is Product => Boolean(product));
 
   return (
     <div className="app-page px-4 py-10 sm:px-8">
@@ -86,13 +79,9 @@ export default async function AccountPage() {
             </p>
           ) : (
             <ul className="mt-4 space-y-2">
-              {favouriteProducts.map(({ favourite, product }) => {
-                if (!product) {
-                  return null;
-                }
-
+              {favouriteProducts.map((product) => {
                 return (
-                  <li key={favourite.id} className="flex items-center justify-between gap-3">
+                  <li key={product.id} className="flex items-center justify-between gap-3">
                     <div>
                       <Link
                         href={`/products/${product.id}`}

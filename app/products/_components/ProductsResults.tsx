@@ -4,7 +4,7 @@ import { ProductCard } from "@/app/products/_components/ProductCard";
 import { ProductsPagination } from "@/app/products/_components/ProductsPagination";
 import { buildProductsHref } from "@/app/products/_lib/search-params";
 import { auth } from "@/src/lib/auth";
-import { db } from "@/src/lib/db";
+import { listUserFavouriteProductIds } from "@/src/lib/favourites";
 import { getProducts } from "@/src/lib/products";
 import type { ProductsQuery } from "@/src/types/products-query";
 
@@ -39,21 +39,13 @@ export async function ProductsResults({
   const urlSearchParams = new URLSearchParams(searchParamsString);
   const productIds = result.items.map((product) => product.id);
 
-  const favourites = session?.user?.id
-    ? await db.favourite.findMany({
-      where: {
-        userId: session.user.id,
-        productId: {
-          in: productIds,
-        },
-      },
-      select: {
-        productId: true,
-      },
-    })
-    : [];
-
-  const favouriteIds = new Set(favourites.map((favourite) => favourite.productId));
+  const favouriteIds = session?.user?.id
+    ? new Set(
+      await listUserFavouriteProductIds(session.user.id, {
+        productIds,
+      }),
+    )
+    : new Set<string>();
 
   return (
     <>

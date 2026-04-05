@@ -1,6 +1,6 @@
 "use client";
 
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useEffect, useMemo, useState } from "react";
 
@@ -20,6 +20,7 @@ export function FavouriteButton({
   compact = false,
 }: FavouriteButtonProps) {
   const pathname = usePathname();
+  const router = useRouter();
   const searchParams = useSearchParams();
   const { status } = useSession();
 
@@ -70,7 +71,10 @@ export function FavouriteButton({
 
       if (!response.ok) {
         setIsFavourited(!nextFavourited);
+        return;
       }
+
+      router.refresh();
     } catch {
       setIsFavourited(!nextFavourited);
     } finally {

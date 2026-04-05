@@ -6,7 +6,7 @@ import { notFound } from "next/navigation";
 import { AddToBasketButton } from "@/app/products/_components/AddToBasketButton";
 import { FavouriteButton } from "@/app/products/_components/FavouriteButton";
 import { auth } from "@/src/lib/auth";
-import { db } from "@/src/lib/db";
+import { isUserProductFavourited } from "@/src/lib/favourites";
 import { getProductById } from "@/src/lib/products";
 
 export const revalidate = 300;
@@ -94,20 +94,9 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
   }
 
   const [descriptionPrimary, descriptionSecondary] = getDetailedParagraphs(product);
-  const existingFavourite = session?.user?.id
-    ? await db.favourite.findUnique({
-      where: {
-        userId_productId: {
-          userId: session.user.id,
-          productId: product.id,
-        },
-      },
-      select: {
-        id: true,
-      },
-    })
-    : null;
-  const isFavourited = Boolean(existingFavourite);
+  const isFavourited = session?.user?.id
+    ? await isUserProductFavourited(session.user.id, product.id)
+    : false;
 
   return (
     <div className="app-page px-4 py-10 sm:px-8">
