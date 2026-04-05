@@ -2,12 +2,15 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 import { type FormEvent, useEffect, useRef, useState } from "react";
 
 import { QuestionStep } from "@/app/recommendations/_components/QuestionStep";
 import { RecommendationResults } from "@/app/recommendations/_components/RecommendationResults";
 import {
   getLatestSavedRecommendationSnapshot,
+  saveRecommendationSnapshotToAccount,
+  syncSavedRecommendationSnapshotsWithAccount,
   type SavedRecommendationSnapshot,
 } from "@/src/lib/recommendation-snapshots";
 import {
@@ -46,6 +49,7 @@ const formatPrice = (value: number) => {
 };
 
 export function RecommendationsPageClient() {
+  const { status } = useSession();
   const formRef = useRef<HTMLFormElement>(null);
   const [answers, setAnswers] = useState<RecommendationAnswers>(DEFAULT_ANSWERS);
   const [results, setResults] = useState<RecommendationResponse | null>(null);
@@ -54,8 +58,22 @@ export function RecommendationsPageClient() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
-    setSavedSnapshot(getLatestSavedRecommendationSnapshot());
-  }, []);
+    if (status === "loading") {
+      return;
+    }
+
+    const loadSavedSnapshot = async () => {
+      if (status === "authenticated") {
+        const snapshots = await syncSavedRecommendationSnapshotsWithAccount();
+        setSavedSnapshot(snapshots[0] ?? null);
+        return;
+      }
+
+      setSavedSnapshot(getLatestSavedRecommendationSnapshot());
+    };
+
+    void loadSavedSnapshot();
+  }, [status]);
 
   const toggleFlavour = (kind: "preferredFlavours" | "avoidFlavours", flavour: string) => {
     setAnswers((current) => {
@@ -387,8 +405,14 @@ export function RecommendationsPageClient() {
         {results ? (
           <RecommendationResults
             items={results.items}
-            onSaved={() => {
-              setSavedSnapshot(getLatestSavedRecommendationSnapshot());
+            onSaved={(snapshot) => {
+              setSavedSnapshot(snapshot);
+
+              if (status === "authenticated") {
+                void saveRecommendationSnapshotToAccount(snapshot).then((snapshots) => {
+                  setSavedSnapshot(snapshots[0] ?? snapshot);
+                });
+              }
             }}
           />
         ) : null}

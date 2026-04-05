@@ -2,10 +2,12 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
 import {
   listSavedRecommendationSnapshots,
+  syncSavedRecommendationSnapshotsWithAccount,
   type SavedRecommendationSnapshot,
 } from "@/src/lib/recommendation-snapshots";
 
@@ -17,11 +19,26 @@ const formatPrice = (value: number) => {
 };
 
 export function SavedRecommendationsSection() {
+  const { status } = useSession();
   const [snapshots, setSnapshots] = useState<SavedRecommendationSnapshot[]>([]);
 
   useEffect(() => {
-    setSnapshots(listSavedRecommendationSnapshots());
-  }, []);
+    if (status === "loading") {
+      return;
+    }
+
+    const loadSnapshots = async () => {
+      if (status === "authenticated") {
+        const synced = await syncSavedRecommendationSnapshotsWithAccount();
+        setSnapshots(synced);
+        return;
+      }
+
+      setSnapshots(listSavedRecommendationSnapshots());
+    };
+
+    void loadSnapshots();
+  }, [status]);
 
   return (
     <section className="app-surface rounded-2xl p-6">
